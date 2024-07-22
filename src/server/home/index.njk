@@ -1,3 +1,6 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
 {% extends 'layouts/page.njk' %}
 
 {% block content %}
@@ -7,9 +10,29 @@
   }) }}
 
   {% call appPageBody() %}
+  {% if fullName %}
     <p>
-      Welcome to the Frontend Template, a starter kit for Core Delivery Platform Node.js Frontends 🚀
+      Hello, {{ fullName }}! 🎉
     </p>
+  {% else %}
+    <p>
+      Tell us your name, so we can personalise your experience. 🤗
+    </p>
+    <form action="/" method="GET">
+      {{ govukInput({
+        label: {
+          text: "Full name"
+        },
+        id: "full-name",
+        name: "fullName",
+        autocomplete: "none",
+        spellcheck: false
+      }) }}
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </form>
+  {% endif %}
     <p>
       Based on <a href="https://github.com/DEFRA/design-standards">DEFRA</a> and <a
               href="https://design-system.service.gov.uk/">GOV.UK</a> best practices this starter kit provides you with
