@@ -1,7 +1,7 @@
 {
   "name": "fcp-hello-world",
   "version": "0.0.0",
-  "description": "CDP Frontend Template",
+  "description": "FCP Hello World",
   "sideEffects": false,
   "main": ".server/index.js",
   "type": "module",
