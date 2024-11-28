@@ -1,0 +1,57 @@
+{% extends 'layouts/page.njk' %}
+
+{% block content %}
+  {% call appPageBody() %}
+  <h1 class="govuk-heading-l">Cases</h1>
+
+  {% if cases.length === 0 %}
+    <div class="text-center">
+      No cases
+    </div>
+  {% endif %}
+  {% if cases.length %}
+    <style>
+      .ellipsed {
+        display: inline-block;
+        max-width: 200px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    </style>
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th class="govuk-table__header govuk-!-width-one-quarter" scope="col">ID</th>
+          <th class="govuk-table__header" scope="col">Status</th>
+          <th class="govuk-table__header" scope="col">User</th>
+          <th class="govuk-table__header" scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        {% for kase in cases %}
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">
+              <a class="govuk-link ellipsed" href="/cases/{{ kase.id }}">{{ kase.id }}</a>
+            </td>
+            <td class="govuk-table__cell">{{ kase.status }}</td>
+            <td class="govuk-table__cell">
+              {% if kase.user %}
+                <a class="govuk-link" href="/users/{{ kase.user.id }}">
+                  {{ kase.user.firstName }}
+                  {{ kase.user.lastName }}
+                </a>
+              {% else %}
+                Unassigned
+              {% endif %}
+            </td>
+            <td class="govuk-table__cell">
+              <a class="govuk-link" href="/cases/{{ kase.id }}">View</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+  {% endcall %}
+{% endblock %}

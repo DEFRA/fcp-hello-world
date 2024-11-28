@@ -1,0 +1,52 @@
+{% extends 'layouts/page.njk' %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block content %}
+  {% call appPageBody() %}
+  <style>
+    .grants-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+  </style>
+  <div class="grants-heading">
+    <h1 class="govuk-heading-l">Grants</h1>
+    {{ govukButton({
+        text: "Create",
+        href: "/grants/create"
+      }) }}
+  </div>
+
+  {% if grants.length === 0 %}
+    <div class="text-center">
+      No grants
+    </div>
+  {% endif %}
+  {% if grants.length %}
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th class="govuk-table__header" scope="col">Name</th>
+          <th class="govuk-table__header" scope="col">Description</th>
+          <th class="govuk-table__header" scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        {% for grant in grants %}
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">
+              {{ grant.name }}
+            </td>
+            <td class="govuk-table__cell">{{ grant.description }}</td>
+            <td class="govuk-table__cell">
+              <a class="govuk-link" href="/grants/{{ grant.id }}">Edit</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+  {% endcall %}
+{% endblock %}

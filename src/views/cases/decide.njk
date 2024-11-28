@@ -1,0 +1,23 @@
+{% extends 'layouts/page.njk' %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% block content %}
+  {% call appPageBody() %}
+  <span class="govuk-caption-l">Cases</span>
+  <h1 class="govuk-heading-l">
+    {{ kase.id }}
+  </h1>
+  <form method="post">
+    {{ govukRadios(decisionRadios) }}
+    <div class="govuk-button-group">
+      {{ govukButton({
+          text: "Save and continue"
+        }) }}
+      <a class="govuk-link" href="/cases/{{kase.id}}">Cancel</a>
+    </div>
+  </form>
+  {% endcall %}
+{% endblock %}

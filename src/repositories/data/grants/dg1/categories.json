@@ -1,0 +1,30 @@
+[
+  {
+    "code": "horticulture",
+    "name": "Horticulture"
+  },
+  {
+    "code": "forestry",
+    "name": "Forestry"
+  },
+  {
+    "code": "waterAndIrrigationManagement",
+    "name": "Water and irrigation management"
+  },
+  {
+    "code": "livestock",
+    "name": "Livestock"
+  },
+  {
+    "code": "general",
+    "name": "General"
+  },
+  {
+    "code": "arable",
+    "name": "Arable"
+  },
+  {
+    "code": "esourceAndEnergyManagement",
+    "name": "Resource and energy management"
+  }
+]

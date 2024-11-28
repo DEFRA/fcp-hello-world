@@ -1,0 +1,326 @@
+{
+  "id": "DG1",
+  "name": "Generic grant name",
+  "description": "Generic grant description",
+  "startDate": "2024-09-16T00:00:00.000Z",
+  "endDate": "2025-09-16T00:00:00.000Z",
+  "pot": 20000000,
+  "questions": [
+    {
+      "id": "businessName",
+      "label": "Business Name",
+      "type": "string",
+      "required": true
+    },
+    {
+      "id": "businessLegalStatus",
+      "label": "Business legal status",
+      "type": "list",
+      "items": [
+        "Limited Company",
+        "Partnership",
+        "Limited Partnership (LLP)",
+        "Charity"
+      ],
+      "required": true
+    },
+    {
+      "id": "companiesHouseNumber",
+      "label": "Companies House number",
+      "type": "string",
+      "pattern": "/^(((AC|CE|CS|FC|FE|GE|GS|IC|LP|NC|NF|NI|NL|NO|NP|OC|OE|PC|R0|RC|SA|SC|SE|SF|SG|SI|SL|SO|SR|SZ|ZC|\\d{2})\\d{6})|((IP|SP|RS)[A-Z\\d]{6})|(SL\\d{5}[\\dA]))$/",
+      "dependsOn": "businessLegalStatus",
+      "whenValue": "Limited Company",
+      "required": true
+    },
+    {
+      "id": "whoIsApplying",
+      "label": "Who is applying?",
+      "type": "list",
+      "items": ["Landowner", "Tenant farmer", "Contractor"],
+      "required": true
+    },
+    {
+      "id": "numberOfEmployees",
+      "label": "Number of employees",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "required": true
+    },
+    {
+      "id": "whatDoYouUseYourLandFor",
+      "label": "What do you use your land for?",
+      "type": "list",
+      "items": ["Agriculture", "Horticulture", "Forestry"],
+      "required": true
+    },
+    {
+      "id": "areaOfFarm",
+      "label": "Area of farm",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "dependsOn": "whatDoYouUseYourLandFor",
+      "whenValue": "Agriculture",
+      "required": true
+    },
+    {
+      "id": "areaOfNursery",
+      "label": "Area of nursery",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "dependsOn": "whatDoYouUseYourLandFor",
+      "whenValue": "Horticulture",
+      "required": true
+    },
+    {
+      "id": "areaOfWoodland",
+      "label": "Area of woodland",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "dependsOn": "whatDoYouUseYourLandFor",
+      "whenValue": "Forestry",
+      "required": true
+    },
+    {
+      "id": "landParcelIds",
+      "label": "Relevant land parcel ids",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "dependsOn": "whatDoYouUseYourLandFor",
+      "whenValue": "Forestry",
+      "required": false
+    },
+    {
+      "id": "farmAssuranceSchemes",
+      "label": "Which farm assurance schemes do you belong to?",
+      "type": "list",
+      "items": [
+        "Red Tracktor",
+        "Retail Scheme",
+        "RSPCA Assured",
+        "Other",
+        "Not Part of a Farm assurance scheme",
+        "Prefer not to say"
+      ],
+      "required": false
+    },
+    {
+      "id": "doYouHaveAnyLivestock",
+      "label": "Do you have lifestock?",
+      "type": "boolean",
+      "required": true
+    },
+    {
+      "id": "totalNumberOfAnimals",
+      "label": "Total number of animals",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "dependsOn": "doYouHaveAnyLivestock",
+      "whenValue": true,
+      "required": true
+    },
+    {
+      "id": "countyParishHoldingNumber",
+      "label": "Country parish holding number",
+      "type": "string",
+      "pattern": "/\\d{2}/\\d{3}/\\d{4}/",
+      "dependsOn": "doYouHaveAnyLivestock",
+      "whenValue": true,
+      "required": true
+    },
+    {
+      "id": "doYouHavePigsOrCows",
+      "label": "Do you have pigs or cows?",
+      "type": "list",
+      "items": ["Pigs", "Cows"],
+      "required": true
+    },
+    {
+      "id": "whatTypeOfPigs",
+      "label": "What type of pigs?",
+      "type": "list",
+      "items": ["Hampshire", "Tamworth"],
+      "dependsOn": "doYouHavePigsOrCows",
+      "whenValue": "Pigs",
+      "required": true
+    },
+    {
+      "id": "totalNumberOfPigs",
+      "label": "Total number of pigs",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "dependsOn": "doYouHavePigsOrCows",
+      "whenValue": "Pigs",
+      "required": true
+    },
+    {
+      "id": "whatTypeOfCows",
+      "label": "What type of cows?",
+      "type": "list",
+      "items": ["Jersey", "Aberdeen angus"],
+      "dependsOn": "doYouHavePigsOrCows",
+      "whenValue": "Cows",
+      "required": true
+    },
+    {
+      "id": "totalNumberOfCows",
+      "label": "Total number of cows",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "dependsOn": "doYouHavePigsOrCows",
+      "whenValue": "Cows",
+      "required": true
+    },
+    {
+      "id": "doYouBelongToaLivestockHealthOrDissPrvntnSchmPtnl",
+      "label": "Do you belong to a lifestock health or disease prevention scheme?",
+      "type": "lifestockHealthSchemes",
+      "min": 0,
+      "max": 10,
+      "required": false
+    },
+    {
+      "id": "items",
+      "label": "Selected items",
+      "type": "equipment",
+      "items": [
+        {
+          "id": "eq1",
+          "label": "Tree shears capacity to fell 300mm diameter trees (FETF14)",
+          "amount": 2255.5,
+          "score": 59,
+          "max": 3
+        }
+      ],
+      "min": 1,
+      "max": 100,
+      "required": true
+    },
+    {
+      "id": "whatFinancialEvidenceWillYouUse",
+      "label": "What financial evidence will you use?",
+      "type": "list",
+      "items": [
+        "bank or building society email or letter",
+        "evidenceOfAPersonalOrPrivateLoan",
+        "statement from a bank or building society"
+      ],
+      "dependsOn": "selectedItems",
+      "whenValue": "25000",
+      "required": false
+    },
+    {
+      "id": "financialEvidenceFile",
+      "label": "Upload bank or building society email or letter",
+      "type": "files",
+      "min": 1,
+      "max": 3,
+      "dependsOn": "whatFinancialEvidenceWillYouUse",
+      "whenValue": "bank or building society email or letter",
+      "required": true
+    },
+    {
+      "id": "q21",
+      "label": "Upload evidence of a personal or private loan",
+      "type": "files",
+      "min": 1,
+      "max": 3,
+      "dependsOn": "whatFinancialEvidenceWillYouUse",
+      "whenValue": "evidenceOfAPersonalOrPrivateLoan",
+      "required": true
+    },
+    {
+      "id": "q22",
+      "label": "Upload statement from a bank or building society",
+      "type": "files",
+      "min": 1,
+      "max": 3,
+      "dependsOn": "whatFinancialEvidenceWillYouUse",
+      "whenValue": "statement from a bank or building society",
+      "required": true
+    },
+    {
+      "id": "q23",
+      "label": "I understand and agree with the above statements",
+      "type": "boolean",
+      "required": true
+    }
+  ],
+  "stages": [
+    {
+      "id": "S1",
+      "name": "Fraud Assessment (Automated)",
+      "description": "Take steps to prevent fraud",
+      "tasks": [
+        {
+          "id": "T1",
+          "description": "Verify identity",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "id": "S7",
+      "name": "Company Checks (Automated)",
+      "tasks": [
+        {
+          "id": "T50",
+          "description": "Business name matches Companies House",
+          "isRequired": true
+        },
+        {
+          "id": "T51",
+          "description": "Date of incorporation was more than 3 years ago",
+          "isRequired": true
+        },
+        {
+          "id": "T52",
+          "description": "Business has no history of insolvency",
+          "isRequired": true
+        },
+        {
+          "id": "T53",
+          "description": "Business is active",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "id": "S2",
+      "name": "Financial Health Assessment",
+      "description": "Assess the applicant's financials",
+      "tasks": [
+        {
+          "id": "T2",
+          "description": "Assess profitability",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "id": "S3",
+      "name": "Application Assessment",
+      "description": "Assess the application",
+      "tasks": [
+        {
+          "id": "T3",
+          "description": "Check if coffee is ready",
+          "isRequired": false
+        },
+        {
+          "id": "T4",
+          "description": "Ensure sufficient evidence provided",
+          "isRequired": true
+        }
+      ]
+    }
+  ]
+}

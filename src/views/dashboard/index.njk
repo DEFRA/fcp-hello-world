@@ -1,0 +1,106 @@
+{% extends 'layouts/page.njk' %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block content %}
+  {% call appPageBody() %}
+  <style>
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(1, 1fr);
+      grid-column-gap: 40px;
+      grid-row-gap: 20px;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+    }
+
+    .card-title {
+      padding: 8px 12px;
+      color: #fff;
+      background-color: #000;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      font-weight: 600;
+    }
+
+    .card-value {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      font-size: 36px;
+      border: 1px solid #b1b4b6;
+      border-top: none;
+    }
+
+    .date-range {
+      display: flex;
+      justify-content: flex-end;
+      align-items: baseline;
+      justify-items: center;
+      gap: 10px;
+      font-size: 18px;
+    }
+
+    .date-range-input {
+      width: 158px;
+    }
+
+    .dashboard-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+  </style>
+  <div class="dashboard-heading govuk-!-margin-bottom-6">
+    <h1 class="govuk-heading-l govuk-!-margin-0">Dashboard</h1>
+    <form class="date-range" action="/" method="GET">
+      <input type="date" id="start" name="start" aria-label="Start date" class="govuk-input date-range-input" value="{{ range.start }}"/>
+      &mdash;
+      <input type="date" id="end" name="end" aria-label="End date" class="govuk-input date-range-input" value="{{ range.end }}"/>
+      {{ govukButton({
+      text: "Show",
+      classes: "govuk-!-margin-0"
+    }) }}
+    </form>
+  </div>
+
+  <h2 class="govuk-heading-m">Cases</h2>
+  <div class="govuk-body-s grid">
+    {% for status, count in cases.countByStatus %}
+      <div class="card">
+        <div class="card-title">{{ status }}</div>
+        <div class="card-value">{{ count }}</div>
+      </div>
+    {% endfor %}
+    <div class="card">
+      <div class="card-title">Avg Time To Resolve</div>
+      <div class="card-value">{{ cases.avgTimeToResolve }}</div>
+    </div>
+  </div>
+
+  <h2 class="govuk-heading-m">Grants</h2>
+  <div class="govuk-body-s grid">
+    <div class="card">
+      <div class="card-title">Active</div>
+      <div class="card-value">{{ grants.active }}</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Pot</div>
+      <div class="card-value">{{ grants.total }}</div>
+    </div>
+    <div class="card">
+      <div class="card-title">To Pay</div>
+      <div class="card-value">{{ grants.toPay }}</div>
+    </div>
+  </div>
+  {% endcall %}
+{% endblock %}

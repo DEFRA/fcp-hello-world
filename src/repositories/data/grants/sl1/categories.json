@@ -1,0 +1,38 @@
+[
+  {
+    "code": "slurry",
+    "name": "Slurry"
+  },
+  {
+    "code": "covers",
+    "name": "Covers"
+  },
+  {
+    "code": "separators",
+    "name": "Separators"
+  },
+  {
+    "code": "receptionPits",
+    "name": "Reception Pits"
+  },
+  {
+    "code": "pumps",
+    "name": "Pumps"
+  },
+  {
+    "code": "pipework",
+    "name": "Pipework"
+  },
+  {
+    "code": "transferChannels",
+    "name": "Transfer Channels"
+  },
+  {
+    "code": "agitators",
+    "name": "Agitators"
+  },
+  {
+    "code": "safetyEquipment",
+    "name": "Safety equipment"
+  }
+]

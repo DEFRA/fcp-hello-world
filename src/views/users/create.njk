@@ -1,0 +1,65 @@
+{% extends 'layouts/page.njk' %}
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block pageTitle %}Create User{% endblock %}
+
+{% block content %}
+  {% call appPageBody() %}
+  <span class="govuk-caption-l">Users</span>
+  <h1 class="govuk-heading-l">Create User</h1>
+  <form action="/users/create" method="post">
+    {{ govukInput({
+      label: {
+        text: "First Name"
+      },
+      classes: "govuk-input--width-20",
+      id: "firstName",
+      name: "firstName",
+      value: firstName,
+      spellcheck: false
+    }) }}
+
+    {{ govukInput({
+      label: {
+        text: "Last Name"
+      },
+      classes: "govuk-input--width-20",
+      id: "lastName",
+      name: "lastName",
+      value: lastName,
+      spellcheck: false
+    }) }}
+
+    {{ govukInput({
+      label: {
+        text: "Email"
+      },
+      classes: "govuk-input--width-20",
+      id: "email",
+      name: "email",
+      value: email,
+      spellcheck: false
+    }) }}
+
+    {{ govukSelect({
+      id: "role",
+      name: "role",
+      label: {
+        text: "Role"
+      },
+      items: roles
+    }) }}
+
+    <div class="govuk-button-group">
+      {{ govukButton({
+        text: "Create"
+      }) }}
+
+      <a class="govuk-link" href="/users">Cancel</a>
+    </div>
+  </form>
+  {% endcall %}
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'layouts/page.njk' %}
+
+{% from "govuk/components/task-list/macro.njk" import govukTaskList %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/tabs/macro.njk" import govukTabs %}
+
+{% block content %}
+  {% call appPageBody() %}
+  <span class="govuk-caption-l">Cases</span>
+  <h1 class="govuk-heading-l">
+    {{ kase.id }}
+  </h1>
+
+  {% set overviewHtml %}
+  <h2 class="govuk-heading-m">
+    Details
+  </h2>
+  {{ govukSummaryList(caseSummaryList) }}
+  <h2 class="govuk-heading-m">
+    Stages
+  </h2>
+  {{ govukTaskList(applicationStages) }}
+  {% if application.status === "Submitted" %}
+    <div style="text-align:right;">
+      {{ govukButton(makeDecisionBtn) }}
+    </div>
+  {% endif %}
+
+  {{ govukTable({
+  caption: "Timeline",
+  captionClasses: "govuk-table__caption--m",
+  firstCellIsHeader: true,
+  head: [
+    {
+      text: "Time",
+      classes: "govuk-!-width-one-quarter"
+    },
+    {
+      text: "Event",
+      classes: "govuk-!-width-one-quarter"
+    },
+    {
+      text: "Change",
+      classes: "govuk-!-width-one-half"
+    }
+  ],
+  rows: timeline
+}) }}
+  {% endset -%}
+
+  {{ govukTabs({
+  items: [
+    {
+      label: "Overview",
+      id: "overviewTab",
+      panel: {
+        html: overviewHtml
+      }
+    },
+    {
+      label: "Application",
+      id: "applicationTab",
+      panel: {
+        html: govukSummaryList(applicationSummaryList)
+      }
+    }
+  ]
+}) }}
+  {% endcall %}
+{% endblock %}
