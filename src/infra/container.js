@@ -1,16 +1,22 @@
+import path from 'node:path'
 import { asClass, createContainer as createAwilixContainer } from 'awilix'
 
 export const createContainer = async () => {
   const container = createAwilixContainer()
 
+  const root = path.resolve(
+    path.dirname(new URL(import.meta.url).pathname),
+    '..'
+  )
+
   await container.loadModules(
     [
-      'src/controllers/**/*.js',
-      'src/infra/**/*.js',
-      'src/services/**/*.js',
-      'src/repositories/**/*.js',
-      'src/subscribers/**/*.js',
-      'src/temporal/**/*.js'
+      `${root}/controllers/**/*.js`,
+      `${root}/infra/**/*.js`,
+      `${root}/services/**/*.js`,
+      `${root}/repositories/**/*.js`,
+      `${root}/subscribers/**/*.js`,
+      `${root}/temporal/**/*.js`
     ],
     {
       resolverOptions: {
