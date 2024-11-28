@@ -27,7 +27,7 @@ ENV NODE_ENV production
 
 RUN npm run build
 
-FROM defradigital/node:${PARENT_VERSION} AS production
+FROM node:20-bullseye
 
 ENV TZ="Europe/London"
 
