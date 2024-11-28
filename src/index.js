@@ -1,23 +1,26 @@
 import { createContainer } from './infra/container.js'
+import Logger from './infra/logger.js'
+import Config from './infra/config.js'
 
 const run = async () => {
-  const container = await createContainer()
-  const logger = container.resolve('logger')
-
-  const dispose = async () => {
-    try {
-      await container.dispose()
-    } catch (err) {
-      logger.error(err)
-      process.exitCode = 1
-    }
-  }
-
-  for (const signal of ['SIGINT', 'SIGTERM', 'SIGUSR2']) {
-    process.on(signal, dispose)
-  }
+  const logger = new Logger({
+    config: new Config()
+  })
 
   try {
+    const container = await createContainer()
+
+    for (const signal of ['SIGINT', 'SIGTERM', 'SIGUSR2']) {
+      process.on(signal, async () => {
+        try {
+          await container.dispose()
+        } catch (err) {
+          logger.error(err)
+          process.exitCode = 1
+        }
+      })
+    }
+
     await container.resolve('temporalClient').start()
     await container.resolve('app').start()
     await container.resolve('temporalWorker').start()
