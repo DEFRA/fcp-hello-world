@@ -1,0 +1,816 @@
+{
+  "id": "SL1",
+  "name": "Slurry storage grant",
+  "description": "Apply for a grant to buy slurry stores, covers and equipment",
+  "startDate": "2024-10-29T00:00:00.000Z",
+  "endDate": "2025-10-29T00:00:00.000Z",
+  "pot": 130000000,
+  "questions": [
+    {
+      "id": "businessName",
+      "label": "Business Name",
+      "type": "string",
+      "required": true
+    },
+    {
+      "id": "businessLegalStatus",
+      "label": "Business legal status",
+      "type": "list",
+      "items": [
+        "Limited Company",
+        "Partnership",
+        "Limited Partnership (LLP)",
+        "Charity"
+      ],
+      "required": true
+    },
+    {
+      "id": "companiesHouseNumber",
+      "label": "Companies House number",
+      "type": "string",
+      "pattern": "/^(((AC|CE|CS|FC|FE|GE|GS|IC|LP|NC|NF|NI|NL|NO|NP|OC|OE|PC|R0|RC|SA|SC|SE|SF|SG|SI|SL|SO|SR|SZ|ZC|\\d{2})\\d{6})|((IP|SP|RS)[A-Z\\d]{6})|(SL\\d{5}[\\dA]))$/",
+      "dependsOn": "businessLegalStatus",
+      "whenValue": "Limited Company",
+      "required": true
+    },
+    {
+      "id": "whoIsApplying",
+      "label": "Who is applying?",
+      "type": "list",
+      "items": ["Landowner", "Tenant farmer", "Contractor"],
+      "required": true
+    },
+    {
+      "id": "numberOfEmployees",
+      "label": "Number of employees",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "required": true
+    },
+    {
+      "id": "whatDoYouUseYourLandFor",
+      "label": "What do you use your land for?",
+      "type": "list",
+      "items": ["Agriculture", "Horticulture", "Forestry"],
+      "required": true
+    },
+    {
+      "id": "areaOfFarm",
+      "label": "Area of farm",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "dependsOn": "whatDoYouUseYourLandFor",
+      "whenValue": "Agriculture",
+      "required": true
+    },
+    {
+      "id": "areaOfNursery",
+      "label": "Area of nursery",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "dependsOn": "whatDoYouUseYourLandFor",
+      "whenValue": "Horticulture",
+      "required": true
+    },
+    {
+      "id": "areaOfWoodland",
+      "label": "Area of woodland",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "dependsOn": "whatDoYouUseYourLandFor",
+      "whenValue": "Forestry",
+      "required": true
+    },
+    {
+      "id": "landParcelIds",
+      "label": "Relevant land parcel ids",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "dependsOn": "whatDoYouUseYourLandFor",
+      "whenValue": "Forestry",
+      "required": false
+    },
+    {
+      "id": "farmAssuranceSchemes",
+      "label": "Which farm assurance schemes do you belong to?",
+      "type": "list",
+      "items": [
+        "Red Tracktor",
+        "Retail Scheme",
+        "RSPCA Assured",
+        "Other",
+        "Not Part of a Farm assurance scheme",
+        "Prefer not to say"
+      ],
+      "required": false
+    },
+    {
+      "id": "doYouHaveAnyLivestock",
+      "label": "Do you have lifestock?",
+      "type": "boolean",
+      "required": true
+    },
+    {
+      "id": "totalNumberOfAnimals",
+      "label": "Total number of animals",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "dependsOn": "doYouHaveAnyLivestock",
+      "whenValue": true,
+      "required": true
+    },
+    {
+      "id": "countyParishHoldingNumber",
+      "label": "Country parish holding number",
+      "type": "string",
+      "pattern": "/\\d{2}/\\d{3}/\\d{4}/",
+      "dependsOn": "doYouHaveAnyLivestock",
+      "whenValue": true,
+      "required": true
+    },
+    {
+      "id": "doYouBelongToaLivestockHealthOrDissPrvntnSchmPtnl",
+      "label": "Do you belong to a lifestock health or disease prevention scheme?",
+      "type": "lifestockHealthSchemes",
+      "min": 0,
+      "max": 10,
+      "required": false
+    },
+    {
+      "id": "whatTypeOfLifestock",
+      "label": "What type of livestock do you mainly farm?",
+      "type": "list",
+      "items": ["Beef", "Dairy", "Pig"],
+      "required": true
+    },
+    {
+      "id": "currentNoOfMonthsOfSlurryStorageCapacity",
+      "label": "How many months of slurry storage capacity do you have now?",
+      "type": "number",
+      "min": 0,
+      "max": 12,
+      "required": true
+    },
+    {
+      "id": "currentNoOfSlurryStores",
+      "label": "How many slurry stores do you have now?",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "required": true
+    },
+    {
+      "id": "currentTypesOfSlurryStores",
+      "label": "What type of slurry stores do you have now?",
+      "type": "list",
+      "items": [
+        "Above ground slurry stores",
+        "Earth bank lagoons without synthetic liner",
+        "Earth bank lagoons with synthetic liner",
+        "Large volume supported slurry bags",
+        "Precast circular concrete slurry stores",
+        "Stores using precast rectangular concrete panels"
+      ],
+      "required": true
+    },
+    {
+      "id": "currentAboveGroundSteelSlurryStoreCapacity",
+      "label": "Above ground steel slurry store capacity",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "dependsOn": "currentTypesOfSlurryStores",
+      "whenValue": "Above ground slurry stores",
+      "required": true
+    },
+    {
+      "id": "currentEarchBankLagoonsWithoutSyntheticLinerCapacity",
+      "label": "Earth bank lagoons without synthetic liner (m3)",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "dependsOn": "currentTypesOfSlurryStores",
+      "whenValue": "Earth bank lagoons without synthetic liner",
+      "required": true
+    },
+    {
+      "id": "currentEarthBankLagoonsWithSyntheticLinerCapacity",
+      "label": "Earth bank lagoons with synthetic liner (m3)",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "dependsOn": "currentTypesOfSlurryStores",
+      "whenValue": "Earth bank lagoons with synthetic liner",
+      "required": true
+    },
+    {
+      "id": "currentLargeVolumeSupportedSlurryBagsCapacity",
+      "label": "Large volume supported slurry bags (m3)",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "dependsOn": "currentTypesOfSlurryStores",
+      "whenValue": "Large volume supported slurry bags",
+      "required": true
+    },
+    {
+      "id": "currentPrecastCircularConcreteSlurryStoreCapacity",
+      "label": "Precast circular concrete slurry stores (m3)",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "dependsOn": "currentTypesOfSlurryStores",
+      "whenValue": "Precast circular concrete slurry stores",
+      "required": true
+    },
+    {
+      "id": "currentPrecastRectangularConcreteSlurryStoreCapacity",
+      "label": "Stores using precast rectangular concrete panels (m3)",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "dependsOn": "currentTypesOfSlurryStores",
+      "whenValue": "Stores using precast rectangular concrete panels",
+      "required": true
+    },
+    {
+      "id": "toKeepAboveGroundSteelSlurryStoreCapacity",
+      "label": "To keep: Above ground steel slurry store capacity",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "dependsOn": "currentTypesOfSlurryStores",
+      "whenValue": "Above ground slurry stores",
+      "required": true
+    },
+    {
+      "id": "toKeepEarchBankLagoonsWithoutSyntheticLinerCapacity",
+      "label": "To keep: Earth bank lagoons without synthetic liner (m3)",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "dependsOn": "currentTypesOfSlurryStores",
+      "whenValue": "Earth bank lagoons without synthetic liner",
+      "required": true
+    },
+    {
+      "id": "toKeepEarthBankLagoonsWithSyntheticLinerCapacity",
+      "label": "To keep: Earth bank lagoons with synthetic liner (m3)",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "dependsOn": "currentTypesOfSlurryStores",
+      "whenValue": "Earth bank lagoons with synthetic liner",
+      "required": true
+    },
+    {
+      "id": "toKeepLargeVolumeSupportedSlurryBagsCapacity",
+      "label": "To keep: Large volume supported slurry bags (m3)",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "dependsOn": "currentTypesOfSlurryStores",
+      "whenValue": "Large volume supported slurry bags",
+      "required": true
+    },
+    {
+      "id": "toKeepPrecastCircularConcreteSlurryStoreCapacity",
+      "label": "To keep: Precast circular concrete slurry stores (m3)",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "dependsOn": "currentTypesOfSlurryStores",
+      "whenValue": "Precast circular concrete slurry stores",
+      "required": true
+    },
+    {
+      "id": "toKeepPrecastRectangularConcreteSlurryStoreCapacity",
+      "label": "To keep: Stores using precast rectangular concrete panels (m3)",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "dependsOn": "currentTypesOfSlurryStores",
+      "whenValue": "Stores using precast rectangular concrete panels",
+      "required": true
+    },
+    {
+      "id": "toKeepTotalNumberOfStores",
+      "label": "How many stores will you keep for this project?",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "required": true
+    },
+    {
+      "id": "toKeepTotalNumberOfFixedCovers",
+      "label": "Total number of fixed flexible covers",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "required": true
+    },
+    {
+      "id": "toKeepTotalNumberOfFloatingCovers",
+      "label": "Total number of floating flexible covers",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "required": true
+    },
+    {
+      "id": "newTypesOfSlurryStores",
+      "label": "Which new slurry stores will you add for this project?",
+      "type": "list",
+      "items": [
+        "Above ground slurry stores",
+        "Earth bank lagoons without synthetic liner",
+        "Earth bank lagoons with synthetic liner",
+        "Large volume supported slurry bags",
+        "Precast circular concrete slurry stores",
+        "Stores using precast rectangular concrete panels"
+      ],
+      "required": true
+    },
+    {
+      "id": "newAboveGroundSteelSlurryStoreCapacity",
+      "label": "Above ground steel slurry store capacity",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "dependsOn": "newTypesOfSlurryStores",
+      "whenValue": "Above ground slurry stores",
+      "required": true
+    },
+    {
+      "id": "newEarchBankLagoonsWithoutSyntheticLinerCapacity",
+      "label": "Earth bank lagoons without synthetic liner (m3)",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "dependsOn": "newTypesOfSlurryStores",
+      "whenValue": "Earth bank lagoons without synthetic liner",
+      "required": true
+    },
+    {
+      "id": "newEarthBankLagoonsWithSyntheticLinerCapacity",
+      "label": "Earth bank lagoons with synthetic liner (m3)",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "dependsOn": "newTypesOfSlurryStores",
+      "whenValue": "Earth bank lagoons with synthetic liner",
+      "required": true
+    },
+    {
+      "id": "newLargeVolumeSupportedSlurryBagsCapacity",
+      "label": "Large volume supported slurry bags (m3)",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "dependsOn": "newTypesOfSlurryStores",
+      "whenValue": "Large volume supported slurry bags",
+      "required": true
+    },
+    {
+      "id": "newPrecastCircularConcreteSlurryStoreCapacity",
+      "label": "Precast circular concrete slurry stores (m3)",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "dependsOn": "newTypesOfSlurryStores",
+      "whenValue": "Precast circular concrete slurry stores",
+      "required": true
+    },
+    {
+      "id": "newPrecastRectangularConcreteSlurryStoreCapacity",
+      "label": "Stores using precast rectangular concrete panels (m3)",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "dependsOn": "newTypesOfSlurryStores",
+      "whenValue": "Stores using precast rectangular concrete panels",
+      "required": true
+    },
+    {
+      "id": "storageCapacityFor6Months",
+      "label": "How much slurry storage capacity will you need for 6 months? (m3)",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "required": true
+    },
+    {
+      "id": "numberOfNewStoresToBeAdded",
+      "label": "How many new stores will you add for this project?",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "required": true
+    },
+    {
+      "id": "numberOfFixedCoversToBeAdded",
+      "label": "Total number of fixed flexible covers to add",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "required": true
+    },
+    {
+      "id": "numberOfFloatingCoversToBeAdded",
+      "label": "Total number of floating flexible covers to add",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "required": true
+    },
+    {
+      "id": "items",
+      "label": "Selected items",
+      "type": "equipment",
+      "items": [
+        {
+          "id": "eq1",
+          "label": "Electric powered slurry transfer pump",
+          "amount": 2255.5,
+          "max": 3
+        }
+      ],
+      "min": 1,
+      "max": 100,
+      "required": true
+    },
+    {
+      "id": "financialAccounts",
+      "label": "Financial accounts for last 3 years",
+      "type": "files",
+      "min": 1,
+      "max": 3,
+      "required": true
+    },
+    {
+      "id": "projectFundingEvidence",
+      "label": "Project funding evidence",
+      "type": "files",
+      "min": 1,
+      "max": 3,
+      "required": true
+    },
+    {
+      "id": "designDeclarationForm",
+      "label": "Slurry storage design declaration form",
+      "type": "files",
+      "min": 1,
+      "max": 3,
+      "required": true
+    },
+    {
+      "id": "designDrawings",
+      "label": "Slurry storage design drawings",
+      "type": "files",
+      "min": 1,
+      "max": 3,
+      "required": true
+    },
+    {
+      "id": "localPlanningAuthorityName",
+      "label": "Local planning authority name",
+      "type": "string",
+      "required": true
+    },
+    {
+      "id": "planningReferenceApprovalNumber",
+      "label": "Planning reference approval number",
+      "type": "string",
+      "required": true
+    },
+    {
+      "id": "planningPermissionEvidence",
+      "label": "Planning permission evidence",
+      "type": "files",
+      "min": 1,
+      "max": 3,
+      "required": true
+    },
+    {
+      "id": "agreeToTnCs",
+      "label": "I understand and agree with the above statements",
+      "type": "boolean",
+      "required": true
+    }
+  ],
+  "stages": [
+    {
+      "id": "S1",
+      "name": "Admin Checks (Automated)",
+      "tasks": [
+        {
+          "id": "T1",
+          "description": "Was the complete application received before the deadline?",
+          "isRequired": true
+        },
+        {
+          "id": "T2",
+          "description": "Has the applicant submitted a SIG Design declaration for slurry storage form?",
+          "isRequired": true
+        },
+        {
+          "id": "T3",
+          "description": "Has the applicant submitted the \"SIG Slurry store location and design assessment form\" and did this pass the EA Assessment?",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "id": "S7",
+      "name": "Company Checks (Automated)",
+      "tasks": [
+        {
+          "id": "T50",
+          "description": "Business name matches Companies House",
+          "isRequired": true
+        },
+        {
+          "id": "T51",
+          "description": "Date of incorporation was more than 3 years ago",
+          "isRequired": true
+        },
+        {
+          "id": "T52",
+          "description": "Business has no history of insolvency",
+          "isRequired": true
+        },
+        {
+          "id": "T53",
+          "description": "Business is active",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "id": "S2",
+      "name": "Applicant Checks",
+      "tasks": [
+        {
+          "id": "T4",
+          "description": "Has the applicant provided a SBI number that matches with the business details on Rural Payments?",
+          "isRequired": true
+        },
+        {
+          "id": "T5",
+          "description": "Does the applicant/agent have either permission to \"make Legal changes\" or \"full permissions\" for the business on Rural Payments?",
+          "isRequired": true
+        },
+        {
+          "id": "T6",
+          "description": "If the applicant or business details have changed from those provided for the OA or the \"SIG Slurry store location and design form\", are the changes acceptable?",
+          "isRequired": true
+        },
+        {
+          "id": "T7",
+          "description": "Is the applicant a pig, beef or dairy farmer?",
+          "isRequired": true
+        },
+        {
+          "id": "T8",
+          "description": "Does the farm have an environmental permit?",
+          "isRequired": true
+        },
+        {
+          "id": "T9",
+          "description": "If \"Yes\" have they provided the permit reference number?",
+          "isRequired": true
+        },
+        {
+          "id": "T10",
+          "description": "If \"Yes\" to B2.5 has a permit variation been requested?",
+          "isRequired": true
+        },
+        {
+          "id": "T11",
+          "description": "Is the applicant currently using a farm system that produces slurry?",
+          "isRequired": true
+        },
+        {
+          "id": "T12",
+          "description": "If the project is on rented/tenanted land or premises, has acceptable evidence of the tenancy arrangement been provided?",
+          "isRequired": true
+        },
+        {
+          "id": "T13",
+          "description": "Is the applicant business legitimate and/or actively trading?",
+          "isRequired": true
+        },
+        {
+          "id": "T14",
+          "description": "Have any of the business principals previously been disqualified, declared insolvent, subject to bankruptcy or a county court judgement?",
+          "isRequired": true
+        },
+        {
+          "id": "T15",
+          "description": "Has the applicant confirmed they have related, linked, parent, subsidiary, partnership, joint venture businesses or operations based in Northern Ireland?",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "id": "S3",
+      "name": "Application Checks",
+      "tasks": [
+        {
+          "id": "T16",
+          "description": "Has the applicant submitted multiple applications, and are the application(s) within the minimum and maximum thresholds?",
+          "isRequired": true
+        },
+        {
+          "id": "T17",
+          "description": "Has satisfactory evidence of planning permission been provided (including approved plans)?",
+          "isRequired": true
+        },
+        {
+          "id": "T18",
+          "description": "If the project details have changed from those provided for the Outline Application (OA) or the \"SIG Slurry store location and design form\" are the changes acceptable?",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "id": "S4",
+      "name": "Store",
+      "tasks": [
+        {
+          "id": "T19",
+          "description": "Does the applicant currently have 6 months usable storage capacity?",
+          "isRequired": true
+        },
+        {
+          "id": "T20",
+          "description": "Will the total usable storage capacity, once the project is complete, provide a minimum of 6 months storage capacity?",
+          "isRequired": true
+        },
+        {
+          "id": "T21",
+          "description": "What is the storage capacity in m3 required to achieve 6 months capacity?",
+          "isRequired": true
+        },
+        {
+          "id": "T22",
+          "description": "If the total future storage capacity will be over 6 months what is the excess volume in m3?",
+          "isRequired": true
+        },
+        {
+          "id": "T23",
+          "description": "Has the location of the slurry store changed since the \"Slurry store location and design assessment\"?",
+          "isRequired": true
+        },
+        {
+          "id": "T24",
+          "description": "What type of store(s) is being built?",
+          "isRequired": true
+        },
+        {
+          "id": "T25",
+          "description": "Has the applicant confirmed whether the retained, expanded or new stores will be used for anything other than what has been declared in their Slurry Wizard calculation?",
+          "isRequired": true
+        },
+        {
+          "id": "T26",
+          "description": "Does the store location match the planning permission? If not, explain.",
+          "isRequired": true
+        },
+        {
+          "id": "T27",
+          "description": "Does the store size match the planning permission? If not, explain.",
+          "isRequired": true
+        },
+        {
+          "id": "T28",
+          "description": "Does the store type match the planning permission? If not, explain.",
+          "isRequired": true
+        },
+        {
+          "id": "T29",
+          "description": "Has confirmation been provided that the construction will meet SSAFO and BS5502? If not, explain.",
+          "isRequired": true
+        },
+        {
+          "id": "T30",
+          "description": "Has an impermeable cover been included in the costs?",
+          "isRequired": true
+        },
+        {
+          "id": "T31",
+          "description": "Does the cover appear to meet the relevant minimum specification and size? If not, explain.",
+          "isRequired": true
+        },
+        {
+          "id": "T32",
+          "description": "Where acidification is being used has suitable evidence been provided? Explain.",
+          "isRequired": true
+        },
+        {
+          "id": "T33",
+          "description": "Does the reception pit appear to meet the relevant minimum specification?",
+          "isRequired": true
+        },
+        {
+          "id": "T34",
+          "description": "Does the other additional equipment appear reasonable for the size of the project?",
+          "isRequired": true
+        },
+        {
+          "id": "T35",
+          "description": "Does the other additional equipment appear reasonable for the size of the project?",
+          "isRequired": true
+        },
+        {
+          "id": "T36",
+          "description": "Pumps",
+          "isRequired": true
+        },
+        {
+          "id": "T37",
+          "description": "Pipework/Transfer channels",
+          "isRequired": true
+        },
+        {
+          "id": "T38",
+          "description": "Agitators",
+          "isRequired": true
+        },
+        {
+          "id": "T39",
+          "description": "Inspection platform with ladder (safety equipment)",
+          "isRequired": true
+        },
+        {
+          "id": "T40",
+          "description": "Safety fencing (safety equipment)",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "id": "S5",
+      "name": "Dual Funding Checks",
+      "tasks": [
+        {
+          "id": "T41",
+          "description": "Is there a risk of dual funding with other GS schemes?",
+          "isRequired": true
+        },
+        {
+          "id": "T42",
+          "description": "Is there a risk of dual funding with a Countryside Stewardship (CS) Agreement?",
+          "isRequired": true
+        },
+        {
+          "id": "T43",
+          "description": "Is there a risk of dual funding with Farming in Protected Landscapes (FiPL) programme?",
+          "isRequired": true
+        },
+        {
+          "id": "T44",
+          "description": "Has the applicant applied for the Lump Sum Exit Scheme?",
+          "isRequired": true
+        },
+        {
+          "id": "T45",
+          "description": "If \"Yes\", have they received their payment?",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "id": "S6",
+      "name": "Financial Checks",
+      "tasks": [
+        {
+          "id": "T46",
+          "description": "Has acceptable proof of project funding been provided?",
+          "isRequired": true
+        },
+        {
+          "id": "T47",
+          "description": "For established businesses, have full business accounts covering the most recent 3 years been provided?",
+          "isRequired": true
+        },
+        {
+          "id": "T48",
+          "description": "Where linked businesses are declared, have accounts been provided for these?",
+          "isRequired": true
+        },
+        {
+          "id": "T49",
+          "description": "For new businesses and applicants without accounts, has other acceptable financial information been supplied?",
+          "isRequired": true
+        }
+      ]
+    }
+  ]
+}

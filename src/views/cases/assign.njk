@@ -1,0 +1,28 @@
+{% extends 'layouts/page.njk' %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+
+{% block content %}
+  {% call appPageBody() %}
+  <span class="govuk-caption-l">Cases</span>
+  <h1 class="govuk-heading-l">
+    {{ kase.id }}
+  </h1>
+
+  <form action="/cases/{{ kase.id }}/assign" method="post">
+    {{ govukSelect({
+        id: "user",
+        name: "userId",
+        label: {
+          text: "Assign to user"
+        },
+        items: items
+      }) }}
+
+    {{ govukButton({
+        text: "Assign"
+      }) }}
+  </form>
+  {% endcall %}
+{% endblock %}

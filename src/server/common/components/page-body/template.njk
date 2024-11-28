@@ -1,7 +1,8 @@
-{% set content = params.html | safe if params.html else params.text %}
+{% set content = params.html | safe if params.html else 
+  params.text %}
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-column-full">
     <div class="govuk-body" data-testid="app-page-body">
       {{ caller() if caller else content }}
     </div>

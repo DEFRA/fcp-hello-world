@@ -1,0 +1,59 @@
+{% extends 'layouts/page.njk' %}
+
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% macro comment(name, value = '') %}
+  <div class="govuk-form-group">
+    <h3 class="govuk-label-wrapper">
+      <label class="govuk-label govuk-label--s" for="{{name}}">
+        Comment
+      </label>
+    </h3>
+    <textarea class="govuk-textarea" id="{{name}}" name="{{name}}" rows="3">{{value}}</textarea>
+  </div>
+{% endmacro %}
+
+{% block content %}
+  {% call appPageBody() %}
+  <span class="govuk-caption-l">Cases</span>
+  <h1 class="govuk-heading-l">{{ kase.id }}</h1>
+  <form method="post">
+
+    <fieldset class="govuk-fieldset" aria-describedby="task-hint">
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+        <h1 class="govuk-fieldset__heading">
+          {{ stage.name }}
+        </h1>
+      </legend>
+      <div id="task-hint" class="govuk-hint">
+        Complete all outstanding tasks
+      </div>
+
+      {% for task in stage.tasks %}
+        <input type="hidden" name="tasks[{{ loop.index0 }}][id]" value="{{ task.id }}">
+        {{ govukCheckboxes({
+          name: "tasks[" + loop.index0 + "][isComplete]",
+          items: [{
+              value: "true",
+              text: task.description,
+              checked: task.isComplete,
+              conditional: {
+                html: comment("tasks[" + loop.index0 + "][comment]", task.comment)
+              },
+              hint: {
+                html: task.hint
+              }
+          }]
+        }) }}
+      {% endfor %}
+    </fieldset>
+
+    <div class="govuk-button-group">
+      {{ govukButton({
+        text: "Save and continue"
+      }) }}
+    </div>
+  </form>
+  {% endcall %}
+{% endblock %}

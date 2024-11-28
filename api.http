@@ -1,0 +1,587 @@
+@base=http://localhost:3000/api
+
+## ---------------------- Users --------------------------
+
+### Create user [ADMIN, MANAGER, WORKER]
+# @name createUser
+POST {{base}}/users
+Content-Type: application/json
+ 
+{
+  "firstName": "John",
+  "lastName": "Smith",
+  "email": "john.smith@defra.gov.uk",
+  "role": "WORKER"
+}
+###
+
+### Get
+GET {{base}}/users/{{createUser.response.body.$.id}}
+
+### List
+GET {{base}}/users
+
+### Update
+PUT {{base}}/users/{{createUser.response.body.$.id}}
+Content-Type: application/json
+ 
+{
+  "role": "ADMIN"
+}
+###
+
+### Delete
+DELETE {{base}}/users/{{createUser.response.body.$.id}}
+
+## ------------------------ Grants ----------------------------
+ 
+### Create
+# @name createGrant
+POST {{base}}/grants
+Content-Type: application/json
+ 
+{
+  "name": "Generic grant name",
+  "description": "Generic grant description",
+  "startDate": "2024-09-16T00:00:00.000Z",
+  "endDate": "2025-09-16T00:00:00.000Z",
+  "questions": [
+    {
+      "id": "whoIsApplying",
+      "label": "Who is applying?",
+      "type": "list",
+      "items": ["Landowner", "Tenant farmer", "Contractor"],
+      "required": true
+    },
+    {
+      "id": "numberOfEmployees",
+      "label": "Number of employees",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "required": true
+    },
+    {
+      "id": "whatDoYouUseYourLandFor",
+      "label": "What do you use your land for?",
+      "type": "list",
+      "items": ["Agriculture", "Horticulture", "Forestry"],
+      "required": true
+    },
+    {
+      "id": "areaOfFarm",
+      "label": "Area of farm",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "dependsOn": "whatDoYouUseYourLandFor",
+      "whenValue": "Agriculture",
+      "required": true
+    },
+    {
+      "id": "areaOfNursery",
+      "label": "Area of nursery",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "dependsOn": "whatDoYouUseYourLandFor",
+      "whenValue": "Horticulture",
+      "required": true
+    },
+    {
+      "id": "areaOfWoodland",
+      "label": "Area of woodland",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "dependsOn": "whatDoYouUseYourLandFor",
+      "whenValue": "Forestry",
+      "required": true
+    },
+    {
+      "id": "landParcelIds",
+      "label": "Relevant land parcel ids",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "dependsOn": "whatDoYouUseYourLandFor",
+      "whenValue": "Forestry",
+      "required": false
+    },
+    {
+      "id": "farmAssuranceSchemes",
+      "label": "Which farm assurance schemes do you belong to?",
+      "type": "list",
+      "items": [
+        "Red Tracktor",
+        "Retail Scheme",
+        "RSPCA Assured",
+        "Other",
+        "Not Part of a Farm assurance scheme",
+        "Prefer not to say"
+      ],
+      "required": false
+    },
+    {
+      "id": "doYouHaveAnyLivestock",
+      "label": "Do you have lifestock?",
+      "type": "boolean",
+      "required": true
+    },
+    {
+      "id": "totalNumberOfAnimals",
+      "label": "Total number of animals",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "dependsOn": "doYouHaveAnyLivestock",
+      "whenValue": true,
+      "required": true
+    },
+    {
+      "id": "countyParishHoldingNumber",
+      "label": "Country parish holding number",
+      "type": "string",
+      "pattern": "/\\d{2}/\\d{3}/\\d{4}/",
+      "dependsOn": "doYouHaveAnyLivestock",
+      "whenValue": true,
+      "required": true
+    },
+    {
+      "id": "doYouHavePigsOrCows",
+      "label": "Do you have pigs or cows?",
+      "type": "list",
+      "items": ["Pigs", "Cows"],
+      "required": true
+    },
+    {
+      "id": "whatTypeOfPigs",
+      "label": "What type of pigs?",
+      "type": "list",
+      "items": ["Hampshire", "Tamworth"],
+      "dependsOn": "doYouHavePigsOrCows",
+      "whenValue": "Pigs",
+      "required": true
+    },
+    {
+      "id": "totalNumberOfPigs",
+      "label": "Total number of pigs",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "dependsOn": "doYouHavePigsOrCows",
+      "whenValue": "Pigs",
+      "required": true
+    },
+    {
+      "id": "whatTypeOfCows",
+      "label": "What type of cows?",
+      "type": "list",
+      "items": ["Jersey", "Aberdeen angus"],
+      "dependsOn": "doYouHavePigsOrCows",
+      "whenValue": "Cows",
+      "required": true
+    },
+    {
+      "id": "totalNumberOfCows",
+      "label": "Total number of cows",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "dependsOn": "doYouHavePigsOrCows",
+      "whenValue": "Cows",
+      "required": true
+    },
+    {
+      "id": "doYouBelongToaLivestockHealthOrDissPrvntnSchmPtnl",
+      "label": "Do you belong to a lifestock health or disease prevention scheme?",
+      "type": "lifestockHealthSchemes",
+      "min": 0,
+      "max": 10,
+      "required": false
+    },
+    {
+      "id": "selectedItems",
+      "label": "Selected items",
+      "type": "equipment",
+      "items": [
+        {
+          "id": "eq1",
+          "label": "Tree shears capacity to fell 300mm diameter trees (FETF14)",
+          "amount": 2255.5,
+          "score": 59,
+          "max": 3
+        }
+      ],
+      "min": 1,
+      "max": 100,
+      "required": true
+    },
+    {
+      "id": "whatFinancialEvidenceWillYouUse",
+      "label": "What financial evidence will you use?",
+      "type": "list",
+      "items": [
+        "bank or building society email or letter",
+        "evidenceOfAPersonalOrPrivateLoan",
+        "statement from a bank or building society"
+      ],
+      "dependsOn": "selectedItems",
+      "whenValue": "25000",
+      "required": false
+    },
+    {
+      "id": "q20",
+      "label": "Upload bank or building society email or letter",
+      "type": "files",
+      "min": 1,
+      "max": 3,
+      "dependsOn": "whatFinancialEvidenceWillYouUse",
+      "whenValue": "bank or building society email or letter",
+      "required": true
+    },
+    {
+      "id": "q21",
+      "label": "Upload evidence of a personal or private loan",
+      "type": "files",
+      "min": 1,
+      "max": 3,
+      "dependsOn": "whatFinancialEvidenceWillYouUse",
+      "whenValue": "evidenceOfAPersonalOrPrivateLoan",
+      "required": true
+    },
+    {
+      "id": "q22",
+      "label": "Upload statement from a bank or building society",
+      "type": "files",
+      "min": 1,
+      "max": 3,
+      "dependsOn": "whatFinancialEvidenceWillYouUse",
+      "whenValue": "statement from a bank or building society",
+      "required": true
+    },
+    {
+      "id": "q23",
+      "label": "I understand and agree with the above statements",
+      "type": "boolean",
+      "required": true
+    }
+  ],
+  "stages": [
+    {
+      "name": "Fraud Assessment",
+      "description": "Take steps to prevent fraud",
+      "tasks": [
+        {
+          "description": "Verify identity",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "name": "Financial Health Assessment",
+      "description": "Assess the applicant's financials",
+      "tasks": [
+        {
+          "description": "Assess profitability",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "name": "Application Assessment",
+      "description": "Assess the application",
+      "tasks": [
+        {
+          "description": "Check if coffee is ready",
+          "isRequired": false
+        },
+        {
+          "description": "Ensure sufficient evidence provided",
+          "isRequired": true
+        }
+      ]
+    }
+  ]
+}
+###
+
+### Get
+GET {{base}}/grants/{{createGrant.response.body.$.id}}
+ 
+### List
+GET {{base}}/grants
+ 
+### Update
+PUT {{base}}/grants/{{createGrant.response.body.$.id}}
+Content-Type: application/json
+ 
+{
+  "name": "Small animal grant",
+  "questions": [
+    {
+      "id": "q1",
+      "question": "Question 1?",
+      "type": "string"
+    },
+    {
+      "id": "q2",
+      "question": "Question 2?",
+      "type": "integer"
+    },
+    {
+      "id": "q3",
+      "question": "Question 3?",
+      "type": "boolean"
+    }
+  ]
+}
+###
+ 
+### Delete
+DELETE {{base}}/grants/{{createGrant.response.body.$.id}}
+
+## ---------------------- Applications --------------------------
+
+### Create
+# @name createApplication
+POST {{base}}/applications
+Content-Type: application/json
+ 
+{
+  "grantId": "{{createGrant.response.body.$.id}}",
+  "answers": [
+    {
+      "questionId": "q1",
+      "answer": "To help small animals"
+    },
+    {
+      "questionId": "q2",
+      "answer": 10
+    }
+  ]
+}
+###
+
+### Get
+GET {{base}}/applications/{{createApplication.response.body.$.id}}
+
+### List
+GET {{base}}/applications
+
+### Update
+PUT {{base}}/applications/{{createApplication.response.body.$.id}}
+
+### Post message
+POST {{base}}/applications/{{createApplication.response.body.$.id}}/messages
+Content-Type: application/json
+
+{
+  "subject": "Re: Bank statement",
+  "body": "Here is my bank statement"
+}
+###
+ 
+### Delete
+DELETE {{base}}/applications/{{createApplication.response.body.$.id}}
+
+## ---------------------- Cases --------------------------
+
+### List
+# @name listCases
+GET {{base}}/cases
+
+### Assign to WORKER
+POST {{base}}/cases/{{listCases.response.body.$[0].id}}/assign/{{createUser.response.body.$.id}}
+
+### Start Assessment
+POST {{base}}/cases/{{listCases.response.body.$[0].id}}/start
+
+### Request Information
+POST {{base}}/cases/{{listCases.response.body.$[0].id}}/request-information
+Content-Type: application/json
+
+{
+  "subject": "Bank statement required",
+  "body": "We cannot process your application without a bank statement"
+}
+###
+
+### Approve Application
+POST {{base}}/cases/{{listCases.response.body.$[0].id}}/approve
+
+### Complete Task 1
+POST {{base}}/cases/{{listCases.response.body.$[0].id}}/tasks/{{listCases.response.body.$[0].tasks[0].id}}/complete 
+
+### Complete Task 2
+POST {{base}}/cases/{{listCases.response.body.$[0].id}}/tasks/{{listCases.response.body.$[0].tasks[1].id}}/complete
+
+### Complete Task 4 (3 is optional)
+POST {{base}}/cases/{{listCases.response.body.$[0].id}}/tasks/{{listCases.response.body.$[0].tasks[3].id}}/complete
+
+### Reject Application
+POST {{base}}/cases/{{listCases.response.body.$[0].id}}/reject
+
+### Withdraw Application
+POST {{base}}/cases/{{listCases.response.body.$[0].id}}/withdraw
+
+### Delete
+DELETE {{base}}/cases/{{listCases.response.body.$[0].id}}
+
+
+## ---------------------- Applications --------------------------
+
+### Submit application GovForms DG1
+POST {{base}}/govforms/DG1/apply
+Content-Type: application/json
+
+{
+  "meta": {
+    "email": "example@defra.gov.uk.com"
+  },
+  "data": {
+    "businessLegalStatus": "limitedCompany",
+    "businessName": "Equal Experts UK Limited",
+    "companiesHouseNumber": "06191086",
+    "whoIsApplying": "tenantFarmer",
+    "numberOfEmployees": "17",
+    "whatDoYouUseYourLandFor": ["agriculture", "horticulture", "forestry"],
+    "areaOfFarm": "25",
+    "areaOfNursery": null,
+    "areaOfWoodland": "13",
+    "landParcelIds": "3903, 5067",
+    "farmAssuranceSchemes": ["rSPCAAssured", "soilAssociation"],
+    "doYouHaveAnyLivestock": "yes",
+    "totalNumberOfAnimals": "15",
+    "countyParishHoldingNumber": "ABC123",
+    "doYouHavePigsOrCows": ["pigs", "cows"],
+    "whatTypeOfCows": "jersey",
+    "whatTypeOfPigs": "tamworth",
+    "totalNumberOfCows": "25",
+    "totalNumberOfPigs": "13",
+    "doYouBelongToaLivestockHealthOrDissPrvntnSchmPtnl": [
+      "laidInBritain",
+      "scheme2"
+    ],
+    "doYouKnowTheNameOfFETFNumberOfTheItemYouWant": "yes",
+    "whichCategoriesOfItemsAreYouLookingFor": [
+      "arable",
+      "general",
+      "horticulture"
+    ],
+    "items": [
+      {
+        "code": "211",
+        "quantity": 14
+      }
+    ],
+    "whatFinancialEvidenceWillYouUse": "evidenceOfAPersonalOrPrivateLoan",
+    "financialEvidenceFile": [
+      {
+        "fileName": "Heuristic evaluation - slurry infrastructure_2024-09-16_16-07-35.pdf",
+        "downloadUrl": "https://govforms.sharepoint.com/sites/GovformsCloudQA/Shared%20Documents/equalexpertsandbox/XRAGE7RY/financialEvidenceFile/Banana.pdf"
+      }
+    ],
+    "submitApplication": ["iUnderstandAndAgreeWithTheAboveStatements"]
+  }
+}
+###
+
+### Submit application GovForms SL1
+POST {{base}}/govforms/SL1/apply
+Content-Type: application/json
+
+{
+  "meta": { "email": "martin.smith@equalexperts.com" },
+  "data": {
+    "searchForItemsBy": "searchByCategoryOfItem",
+    "carts": { "state": [], "items": [] },
+    "categories": [ "pumps" ],
+    "itemQuantity": "3",
+    "doYouNeedToAddMoreItemsToThisList": "no",
+    "countyParishHoldingNumber_copy": "434343",
+    "totalNumberOfAnimals_copy": "43",
+    "tradingThreeYears": "yes",
+    "financialEvidenceFile": [],
+    "projectFundingEvidenceFile": [],
+    "designDeclarationFormFile": [],
+    "designDrawingsFile": [],
+    "localPlanningAuthorityName": "121212",
+    "planningReferenceApprovalNumber": "121212",
+    "planningPermissionEvidenceFile": [],
+    "numberOfEmployees": "12",
+    "whoIsApplying": [ "landowner" ],
+    "areaOfFarm": null,
+    "areaOfNursery": "1212",
+    "areaOfWoodland": null,
+    "landParcelIds": null,
+    "whatDoYouUseYourLandFor": [ "horticulture" ],
+    "farmAssuranceSchemes": [ "redTractor" ],
+    "countyParishHoldingNumber": "1213123",
+    "doYouHaveAnyLivestock": "yes",
+    "totalNumberOfAnimals": "122",
+    "typeOfLivetock": "beef",
+    "doYouBelongToaLivestockHealthOrDissPrvntnSchmPtnl": null,
+    "existingMonthsOfSlurryCapacity": "12",
+    "totalNumberOfStores": "12",
+    "aboveGroundSlurryStoresCapacity": "1111",
+    "aboveGroundSlurryStoresCapacityKept": "22222",
+    "earthBankLagoonsWithSyntheticLinerCapacity": null,
+    "earthBankLagoonsWithSyntheticLinerCapacityKept": null,
+    "earthBankLagoonsWithoutSyntheticLinerCapacity": null,
+    "earthBankLagoonsWithoutSyntheticLinerCapacityKept": null,
+    "largeVolumeSupportedSlurryBagsCapacity": null,
+    "largeVolumeSupportedSlurryBagsCapacityKept": null,
+    "precastCircularConcreteSlurryStoresCapacity": null,
+    "precastCircularConcreteSlurryStoresCapacityKept": null,
+    "storesUsingPrecastRectangularConcretePanelsCapacity": null,
+    "storesUsingPrecastRectangularConcretePanelsCapacityKept": null,
+    "whatTypeOfSlurryStoresDoYouHaveNow": [ "aboveGroundSlurryStores" ],
+    "totalStoresToKeep": "33",
+    "totalStoresToKeepFixedCovers": "33",
+    "totalStoresToKeepFlexibleCovers": "33",
+    "address": {
+      "line1": "Spaces",
+      "line2": "Floor 2",
+      "line3": "111 Deansgate",
+      "line4": "Manchester",
+      "postcode": "M1 9ZZ",
+      "line5": "",
+      "country": ""
+    },
+    "businessLegalStatus": "limitedCompany",
+    "businessName": "Equal Experts UK Limited",
+    "companiesHouseNumber": "06191086",
+    "phoneNum": "07777777777",
+    "aboveGroundSteelSlurryStoreNewCapacity": "11",
+    "earthBankLagoonsWithSyntheticLinerNewCapacity": null,
+    "earthBankLagoonsWithoutSyntheticLinerNewCapacity": "12",
+    "largeVolumeSupportedSlurryBagsNewCapacty": null,
+    "precastCircularConcreteSlurryStoresNewCapacty": null,
+    "slurryStoresToAdd": [
+      "aboveGroundSlurryStores",
+      "earthBankLagoonsWithoutSyntheticLiner"
+    ],
+    "storesUsingPrecastRectangularConcretePanelsNewCapacity": null,
+    "whatIsYourRequiredSixMonthCapacity": "45",
+    "totalNumberOfNewStores": "43",
+    "totalNumberOfNewFixedFlexibleCoversNewStores": "45",
+    "totalNumberOfNewFloatingFlexibleCoversNewStores": "43",
+    "submitApplication": [ "agreeSubmitDeclaration" ],
+    "now": "2024-11-11T15:11:25.010Z",
+    "items": []
+  }
+}
+###
+
+### Find all categories
+GET {{base}}/govforms/SL1/fetf-item-categories
+
+### Find all items
+GET {{base}}/govforms/SL1/fetf-items
+
+### Find items by category
+GET {{base}}/govforms/SL1/fetf-items?categories=transferChannels&categories=pipework
+
+### Find items by text
+GET {{base}}/govforms/SL1/fetf-items?text=5

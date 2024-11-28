@@ -1,13 +1,30 @@
-import process from 'node:process'
+import { createContainer } from './infra/container.js'
 
-import { createLogger } from '~/src/server/common/helpers/logging/logger.js'
-import { startServer } from '~/src/server/common/helpers/start-server.js'
+const run = async () => {
+  const container = await createContainer()
+  const logger = container.resolve('logger')
 
-await startServer()
+  const dispose = async () => {
+    try {
+      await container.dispose()
+    } catch (err) {
+      logger.error(err)
+      process.exitCode = 1
+    }
+  }
 
-process.on('unhandledRejection', (error) => {
-  const logger = createLogger()
-  logger.info('Unhandled rejection')
-  logger.error(error)
-  process.exitCode = 1
-})
+  for (const signal of ['SIGINT', 'SIGTERM', 'SIGUSR2']) {
+    process.on(signal, dispose)
+  }
+
+  try {
+    await container.resolve('temporalClient').start()
+    await container.resolve('app').start()
+    await container.resolve('temporalWorker').start()
+  } catch (err) {
+    logger.error(err)
+    process.exitCode = 1
+  }
+}
+
+run()

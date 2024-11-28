@@ -1,0 +1,66 @@
+{% extends 'layouts/page.njk' %}
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block pageTitle %}Create Grant{% endblock %}
+
+{% block content %}
+  {% call appPageBody() %}
+  <span class="govuk-caption-l">Grants</span>
+  <h1 class="govuk-heading-l">Create Grant</h1>
+  <form action="/grants/create" method="post">
+    {{ govukInput({
+      label: {
+        text: "Name"
+      },
+      id: "name",
+      name: "name",
+      value: name,
+      spellcheck: false
+    }) }}
+
+    {{ govukInput({
+      label: {
+        text: "Description"
+      },
+      id: "description",
+      name: "description",
+      value: description,
+      spellcheck: false
+    }) }}
+
+    {{ govukTextarea({
+      label: {
+        text: "Questions"
+      },
+      id: "questions",
+      name: "questions",
+      value: questions,
+      rows: 10,
+      spellcheck: false
+    }) }}
+
+    {{ govukTextarea({
+      label: {
+        text: "Stages"
+      },
+      id: "stages",
+      name: "stages",
+      value: stages,
+      rows: 10,
+      spellcheck: false
+    }) }}
+
+    <div class="govuk-button-group">
+      {{ govukButton({
+        text: "Create"
+      }) }}
+
+      <a class="govuk-link" href="/grants">Cancel</a>
+    </div>
+  </form>
+  {% endcall %}
+{% endblock %}
