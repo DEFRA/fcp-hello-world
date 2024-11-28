@@ -3,7 +3,7 @@ import { env } from 'node:process'
 export default class Config {
   env = env.NODE_ENV
 
-  logLevel = env.LOG_LEVEL
+  logLevel = env.LOG_LEVEL ?? 'info'
 
   assetPath = '/public'
 
