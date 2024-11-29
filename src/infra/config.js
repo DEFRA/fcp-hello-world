@@ -12,6 +12,15 @@ export default class Config {
     host: '0.0.0.0'
   }
 
+  proxy = {
+    http: env.CDP_HTTP_PROXY,
+    https: env.CDP_HTTPS_PROXY,
+    squid: {
+      username: env.SQUID_USERNAME,
+      password: env.SQUID_PASSWORD
+    }
+  }
+
   temporal = {
     url: env.TEMPORAL_SERVER_URL,
     namespace: env.TEMPORAL_NAMESPACE,

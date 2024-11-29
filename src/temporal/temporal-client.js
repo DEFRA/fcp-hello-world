@@ -13,6 +13,8 @@ export default class TemporalClient {
   }
 
   async start() {
+    process.env.grpc_proxy = this.config.proxy.http
+
     this.client = new Client({
       namespace: this.config.temporal.namespace,
       connection: await Connection.connect({

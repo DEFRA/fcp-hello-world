@@ -38,6 +38,14 @@ export default class TemporalWorker {
       namespace: this.config.temporal.namespace,
       connection: await NativeConnection.connect({
         address: this.config.temporal.url,
+        proxy: {
+          type: 'http-connect',
+          targetHost: this.config.proxy.http,
+          basicAuth: {
+            username: this.config.proxy.squid.username,
+            password: this.config.proxy.squid.password
+          }
+        },
         tls:
           this.config.temporal.mtls.crt && this.config.temporal.mtls.key
             ? {
