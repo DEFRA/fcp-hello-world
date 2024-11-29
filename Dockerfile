@@ -1,35 +1,23 @@
-ARG PARENT_VERSION=20-bullseye-slim
 ARG PORT=3000
 ARG PORT_DEBUG=9229
+ARG BASE_IMAGE=node:22.11.0-bullseye-slim
 
-FROM node:${PARENT_VERSION} AS development
+FROM ${BASE_IMAGE} AS build
 
-ENV TZ="Europe/London"
+WORKDIR /home/node
 
-ARG PARENT_VERSION
-LABEL uk.gov.defra.ffc.parent-image=node:${PARENT_VERSION}
-
-ARG PORT
-ARG PORT_DEBUG
-ENV PORT ${PORT}
-EXPOSE ${PORT} ${PORT_DEBUG}
-
-COPY --chown=node:node package*.json ./
-RUN npm install
 COPY --chown=node:node . .
+
+RUN npm ci
 RUN npm run build
 
-CMD [ "npm", "run", "docker:dev" ]
-
-FROM development AS productionBuild
-
-ENV NODE_ENV production
-
-RUN npm run build
-
-FROM node:${PARENT_VERSION} AS production
+FROM ${BASE_IMAGE} AS production
 
 ENV TZ="Europe/London"
+ENV NODE_ENV production
+ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
+ENV PATH=$PATH:/home/node/.npm-global/bin
+ENV NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/internal-ca.crt
 
 # Add curl to template.
 # CDP PLATFORM HEALTHCHECK REQUIREMENT
@@ -37,14 +25,15 @@ USER root
 RUN apt-get update \
     && apt-get install -y ca-certificates curl \
     && rm -rf /var/lib/apt/lists/*
+COPY certificates/internal-ca.crt /usr/local/share/ca-certificates/internal-ca.crt
+RUN chmod 644 /usr/local/share/ca-certificates/internal-ca.crt && update-ca-certificates
 USER node
 
-ARG PARENT_VERSION
-LABEL uk.gov.defra.ffc.parent-image=node:${PARENT_VERSION}
+WORKDIR /home/node
 
-COPY --from=productionBuild /home/node/package*.json ./
-COPY --from=productionBuild /home/node/.server ./.server/
-COPY --from=productionBuild /home/node/.public/ ./.public/
+COPY --from=build /home/node/package*.json .
+COPY --from=build /home/node/src .
+COPY --from=build /home/node/.public .public
 
 RUN npm ci --omit=dev
 
