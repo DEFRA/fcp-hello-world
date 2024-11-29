@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "FCP Hello World",
   "sideEffects": false,
-  "main": ".server/index.js",
+  "main": "src/index.js",
   "type": "module",
   "engines": {
     "node": ">=22.11.0"

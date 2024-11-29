@@ -32,7 +32,7 @@ USER node
 WORKDIR /home/node
 
 COPY --from=build /home/node/package*.json .
-COPY --from=build /home/node/src .
+COPY --from=build /home/node/src src
 COPY --from=build /home/node/.public .public
 
 RUN npm ci --omit=dev
@@ -41,4 +41,4 @@ ARG PORT
 ENV PORT ${PORT}
 EXPOSE ${PORT}
 
-CMD [ "node", "." ]
+CMD [ "node", "src" ]
