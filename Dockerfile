@@ -1,13 +1,13 @@
-ARG PARENT_VERSION=2.2.2-node20.11.1
+ARG PARENT_VERSION=20-bullseye-slim
 ARG PORT=3000
 ARG PORT_DEBUG=9229
 
-FROM defradigital/node-development:${PARENT_VERSION} AS development
+FROM node:${PARENT_VERSION} AS development
 
 ENV TZ="Europe/London"
 
 ARG PARENT_VERSION
-LABEL uk.gov.defra.ffc.parent-image=defradigital/node-development:${PARENT_VERSION}
+LABEL uk.gov.defra.ffc.parent-image=node:${PARENT_VERSION}
 
 ARG PORT
 ARG PORT_DEBUG
@@ -21,31 +21,30 @@ RUN npm run build
 
 CMD [ "npm", "run", "docker:dev" ]
 
-FROM development as productionBuild
+FROM development AS productionbuild
 
 ENV NODE_ENV production
 
 RUN npm run build
 
-FROM node:20-bullseye-slim
+FROM node:${PARENT_VERSION} AS production
 
 ENV TZ="Europe/London"
 
 # Add curl to template.
 # CDP PLATFORM HEALTHCHECK REQUIREMENT
 USER root
-
 RUN apt-get update \
     && apt-get install -y ca-certificates curl \
     && rm -rf /var/lib/apt/lists/*
 USER node
 
 ARG PARENT_VERSION
-LABEL uk.gov.defra.ffc.parent-image=defradigital/node:${PARENT_VERSION}
+LABEL uk.gov.defra.ffc.parent-image=node:${PARENT_VERSION}
 
-COPY --from=productionBuild /home/node/package*.json ./
-COPY --from=productionBuild /home/node/.server ./.server/
-COPY --from=productionBuild /home/node/.public/ ./.public/
+COPY --from=productionbuild /home/node/package*.json ./
+COPY --from=productionbuild /home/node/.server ./.server/
+COPY --from=productionbuild /home/node/.public/ ./.public/
 
 RUN npm ci --omit=dev
 
