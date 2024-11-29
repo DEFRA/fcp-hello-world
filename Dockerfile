@@ -27,16 +27,17 @@ ENV NODE_ENV production
 
 RUN npm run build
 
-FROM defradigital/node:${PARENT_VERSION} AS production
+FROM node:20-bullseye-slim
 
 ENV TZ="Europe/London"
 
 # Add curl to template.
 # CDP PLATFORM HEALTHCHECK REQUIREMENT
 USER root
-RUN apk update && \
-    apk add curl && \
-    apk add libc6-compat
+
+RUN apt-get update \
+    && apt-get install -y ca-certificates curl \
+    && rm -rf /var/lib/apt/lists/*
 USER node
 
 ARG PARENT_VERSION
