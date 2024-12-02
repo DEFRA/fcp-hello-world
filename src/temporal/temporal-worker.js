@@ -24,6 +24,8 @@ export default class TemporalWorker {
   async start() {
     const workflowsPathUrl = new URL('./temporal-workflow.js', import.meta.url)
 
+    process.env.grpc_proxy = this.config.proxy.https
+
     this.worker = await Worker.create({
       taskQueue: 'FTF_GRANT_APPLICATIONS',
       workflowsPath: fileURLToPath(workflowsPathUrl),
@@ -38,14 +40,6 @@ export default class TemporalWorker {
       namespace: this.config.temporal.namespace,
       connection: await NativeConnection.connect({
         address: this.config.temporal.url,
-        proxy: {
-          type: 'http-connect',
-          targetHost: this.config.proxy.http,
-          basicAuth: {
-            username: this.config.proxy.squid.username,
-            password: this.config.proxy.squid.password
-          }
-        },
         tls:
           this.config.temporal.mtls.crt && this.config.temporal.mtls.key
             ? {
