@@ -80,6 +80,10 @@ export default class CaseService {
   async assign(id, userId) {
     const kase = await this.caseRepository.findById(id)
 
+    // eslint-disable-next-line no-console
+    console.log(
+      `CaseService assign case ${id} to ${userId}, current case ${JSON.strifigy(kase)}`
+    )
     const updatedCase = await this.caseRepository.update(id, {
       ...kase,
       userId
