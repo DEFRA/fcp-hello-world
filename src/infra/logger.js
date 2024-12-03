@@ -20,7 +20,14 @@ export default class Logger {
           ],
           remove: true
         },
-        ...ecsFormat()
+        ...ecsFormat(),
+        base: {
+          service: {
+            name: config.serviceName,
+            type: 'nodeJs',
+            version: config.serviceVersion
+          }
+        }
       },
       test: {
         enabled: false

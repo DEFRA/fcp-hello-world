@@ -7,6 +7,9 @@ export default class Config {
 
   assetPath = '/public'
 
+  serviceName = 'fcp-hello-world'
+  serviceVersion = env.SERVICE_VERSION
+
   server = {
     port: env.PORT ?? 3000,
     host: '0.0.0.0'
