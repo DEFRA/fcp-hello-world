@@ -24,7 +24,7 @@ export default class TemporalWorker {
   async start() {
     const workflowsPathUrl = new URL('./temporal-workflow.js', import.meta.url)
 
-    process.env.grpc_proxy = this.config.proxy.https
+    process.env.grpc_proxy = this.config.proxy.http
 
     this.worker = await Worker.create({
       taskQueue: 'FTF_GRANT_APPLICATIONS',
