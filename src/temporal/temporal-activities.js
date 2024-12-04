@@ -43,17 +43,7 @@ export const createActivities = (
       caseId,
       workerId: workerWithLeastCases.id
     })
-    try {
-      await caseService.assign(caseId, workerWithLeastCases.id)
-    } catch (err) {
-      logger.error(
-        `Failed to assign case ${caseId} to worker ${workerWithLeastCases.id}`,
-        {
-          err
-        }
-      )
-      throw err
-    }
+    await caseService.assign(caseId, workerWithLeastCases.id)
   },
   async isFraudRisk(caseId, applicationId) {
     logger.info('Checking if applicant is a fraud risk', {
