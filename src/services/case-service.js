@@ -12,11 +12,18 @@ import { Case, Task } from '../models/case.js'
 import { Status } from '../models/status.js'
 
 export default class CaseService {
-  constructor({ caseRepository, grantService, events, temporalClient }) {
+  constructor({
+    caseRepository,
+    grantService,
+    events,
+    temporalClient,
+    logger
+  }) {
     this.caseRepository = caseRepository
     this.grantService = grantService
     this.events = events
     this.temporalClient = temporalClient
+    this.logger = logger
   }
 
   async save(applicationId, grantId) {
@@ -80,10 +87,10 @@ export default class CaseService {
   async assign(id, userId) {
     const kase = await this.caseRepository.findById(id)
 
-    // eslint-disable-next-line no-console
-    console.log(
-      `CaseService assign case ${id} to ${userId}, current case ${JSON.strifigy(kase)}`
-    )
+    if (!kase) {
+      throw new Error(`Case "${id}" not found`)
+    }
+
     const updatedCase = await this.caseRepository.update(id, {
       ...kase,
       userId

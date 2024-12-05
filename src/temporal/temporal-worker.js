@@ -59,7 +59,7 @@ export default class TemporalWorker {
       }
     })
 
-    const workflowsPathUrl = new URL('./temporal-workflow.js', import.meta.url)
+    process.env.grpc_proxy = this.config.proxy.https
 
     process.env.grpc_proxy = this.config.proxy.http
 
