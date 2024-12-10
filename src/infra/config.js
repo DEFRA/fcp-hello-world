@@ -3,12 +3,18 @@ import { env } from 'node:process'
 export default class Config {
   env = env.NODE_ENV
 
-  logLevel = env.LOG_LEVEL ?? 'info'
+  log = {
+    enabled: env.LOG_ENABLED ?? true,
+    level: env.LOG_LEVEL ?? 'warn',
+    format: env.LOG_FORMAT ?? 'ecs'
+  }
 
   assetPath = '/public'
 
-  serviceName = 'fcp-hello-world'
-  serviceVersion = env.SERVICE_VERSION
+  service = {
+    name: 'fcp-hello-world',
+    version: env.SERVICE_VERSION ?? '0.0.0'
+  }
 
   server = {
     port: env.PORT ?? 3000,

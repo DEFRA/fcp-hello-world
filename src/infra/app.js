@@ -3,18 +3,20 @@ export default class App {
     server,
     applicationSubscriber,
     caseSubscriber,
+    // temporalSubscriber,
     eventSubscriber
   }) {
     this.server = server
-    this.subscriptions = [
+    this.subscribers = [
       applicationSubscriber,
       caseSubscriber,
+      // temporalSubscriber,
       eventSubscriber
     ]
   }
 
   async start() {
-    this.subscriptions.map((s) => s.subscribe())
+    await Promise.all(this.subscribers.map((s) => s.subscribe()))
     await this.server.start()
   }
 }

@@ -11,9 +11,7 @@
   "scripts": {
     "build": "NODE_ENV=production webpack",
     "docker:dev": "NODE_ENV=development run-p frontend:watch server:watch",
-    "predev": "npm run build",
-    "dev": "run-p frontend:watch server:watch",
-    "dev:debug": "run-p frontend:watch server:debug",
+    "dev": "run-p frontend:watch server",
     "format": "prettier --write \"src/**/*.js\" \"**/*.{js,cjs,md,json,config.js,test.js}\"",
     "format:check": "prettier --check \"src/**/*.js\" \"**/*.{js,cjs,md,json,config.js,test.js}\"",
     "frontend:watch": "webpack --watch",
@@ -25,8 +23,7 @@
     "postversion": "git add package.json package-lock.json && git commit -m $npm_package_version",
     "test": "jest --coverage --verbose",
     "test:watch": "jest --watch",
-    "server:watch": "node --env-file=.env --watch-path=src --watch-preserve-output src",
-    "server:debug": "node --env-file=.env --watch-path=src --watch-preserve-output --inspect src",
+    "server": "node --env-file=.env src",
     "prestart": "npm run build",
     "start": "NODE_ENV=production node --use-strict .",
     "setup:husky": "node -e \"try { (await import('husky')).default() } catch (e) { if (e.code !== 'ERR_MODULE_NOT_FOUND') throw e }\" --input-type module"
@@ -54,7 +51,6 @@
     "date-fns": "3.6.0",
     "govuk-frontend": "5.7.1",
     "hapi-pino": "12.1.0",
-    "hapi-pulse": "3.0.1",
     "https-proxy-agent": "7.0.5",
     "ioredis": "5.4.1",
     "lodash": "4.17.21",

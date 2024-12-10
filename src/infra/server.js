@@ -4,7 +4,6 @@ import { fileURLToPath } from 'node:url'
 import hapi from '@hapi/hapi'
 import hapiVision from '@hapi/vision'
 import inert from '@hapi/inert'
-import hapiPulse from 'hapi-pulse'
 import hapiPino from 'hapi-pino'
 import nunjucks from 'nunjucks'
 import { Lifetime, RESOLVER } from 'awilix'
@@ -59,13 +58,6 @@ export default class Server {
           options: {
             ignorePaths: ['/health'],
             instance: logger.pino
-          }
-        },
-        pulse: {
-          plugin: hapiPulse,
-          options: {
-            logger,
-            timeout: 10_000
           }
         },
         vision: {
@@ -193,26 +185,13 @@ export default class Server {
       await this.server.register(this.config.plugins.logger)
     }
 
-    await this.server.register([
-      this.config.plugins.pulse,
-      this.config.plugins.vision,
-      inert
-    ])
+    await this.server.register([this.config.plugins.vision, inert])
 
     this.server.route(this.routes)
 
     this.server.ext('onPreResponse', this.#onPreResponse)
 
-    try {
-      await this.server.start()
-
-      this.logger.info(
-        `Server started on http://localhost:${this.config.server.port}`
-      )
-    } catch (err) {
-      this.logger.error('Failed to start server', { error: err })
-      throw err
-    }
+    await this.server.start()
   }
 
   async dispose() {

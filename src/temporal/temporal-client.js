@@ -13,7 +13,7 @@ export default class TemporalClient {
   }
 
   async start() {
-    process.env.grpc_proxy = this.config.proxy.https
+    // process.env.grpc_proxy = this.config.proxy.https
 
     this.client = new Client({
       namespace: this.config.temporal.namespace,
@@ -43,7 +43,7 @@ export default class TemporalClient {
   }
 
   async dispose() {
-    await this.client.connection.close()
+    await this.client?.connection.close()
   }
 
   async describe(workflowId) {

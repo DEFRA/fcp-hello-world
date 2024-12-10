@@ -1,4 +1,3 @@
-import { setTimeout } from 'node:timers/promises'
 import { URL, fileURLToPath } from 'node:url'
 import {
   NativeConnection,
@@ -11,6 +10,8 @@ import { Lifetime, RESOLVER } from 'awilix'
 import { createActivities } from './temporal-activities.js'
 
 export default class TemporalWorker {
+  worker = null
+
   constructor({
     config,
     logger,
@@ -60,9 +61,44 @@ export default class TemporalWorker {
     })
 
     const workflowsPathUrl = new URL('./temporal-workflow.js', import.meta.url)
-    process.env.grpc_proxy = this.config.proxy.https
+    // process.env.grpc_proxy = this.config.proxy.https
 
-    process.env.grpc_proxy = this.config.proxy.http
+    // const workflowBundle =
+    //   this.config.env === 'production'
+    //     ? {
+    //         workflowBundle: {
+    //           codePath: fileURLToPath(
+    //             new URL('../temporal-workflow-bundle.js', import.meta.url)
+    //           )
+    //         }
+    //       }
+    //     : {
+    //         workflowsPath: fileURLToPath(
+    //           new URL('./temporal-workflow.js', import.meta.url)
+    //         )
+    //       }
+
+    // const workflowBundle = {
+    //   workflowsPath: fileURLToPath(
+    //     new URL('./temporal-workflow.js', import.meta.url)
+    //   )
+    // }
+
+    // const [creds, targetHost] = this.config.proxy.https.split('@')
+    // const [username, password] = creds.split(':')
+
+    const connection = await NativeConnection.connect({
+      address: this.config.temporal.url,
+      tls:
+        this.config.temporal.mtls.crt && this.config.temporal.mtls.key
+          ? {
+              clientCertPair: {
+                crt: Buffer.from(this.config.temporal.mtls.crt, 'base64'),
+                key: Buffer.from(this.config.temporal.mtls.key, 'base64')
+              }
+            }
+          : null
+    })
 
     this.worker = await Worker.create({
       taskQueue: 'FTF_GRANT_APPLICATIONS',
@@ -76,29 +112,19 @@ export default class TemporalWorker {
         this.companiesHouseService
       ),
       namespace: this.config.temporal.namespace,
-      connection: await NativeConnection.connect({
-        address: this.config.temporal.url,
-        tls:
-          this.config.temporal.mtls.crt && this.config.temporal.mtls.key
-            ? {
-                clientCertPair: {
-                  crt: Buffer.from(this.config.temporal.mtls.crt, 'base64'),
-                  key: Buffer.from(this.config.temporal.mtls.key, 'base64')
-                }
-              }
-            : null
-      })
+      connection
     })
 
     await this.worker.run()
+    await connection.close()
   }
 
   async dispose() {
-    while (this.worker.getState() !== 'STOPPED') {
-      await setTimeout(500)
-    }
-
-    await this.worker.connection.close()
+    // await this.worker?.shutdown()
+    // while (this.worker.getState() !== 'STOPPED') {
+    //   await setTimeout(500)
+    // }
+    // await this.worker.connection.close()
   }
 }
 

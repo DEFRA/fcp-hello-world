@@ -1,5 +1,6 @@
 ARG PORT=3000
 ARG PORT_DEBUG=9229
+# temporal needs glibc https://docs.temporal.io/develop/typescript/core-application#do-not-use-alpine
 ARG BASE_IMAGE=node:22.11.0-bullseye-slim
 
 FROM ${BASE_IMAGE} AS build

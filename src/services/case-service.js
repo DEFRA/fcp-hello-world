@@ -5,6 +5,7 @@ import { ApplicationInformationRequested } from '../kernel/events/application-in
 import { ApplicationRejected } from '../kernel/events/application-rejected.js'
 import { ApplicationWithdrawn } from '../kernel/events/application-withdrawn.js'
 import { CaseAssigned } from '../kernel/events/case-assigned.js'
+import { CaseCreated } from '../kernel/events/case-created.js'
 import { CaseStageCompleted } from '../kernel/events/case-stage-completed.js'
 import { CaseStatusChanged } from '../kernel/events/case-status-changed.js'
 import { Result } from '../kernel/result.js'
@@ -12,17 +13,10 @@ import { Case, Task } from '../models/case.js'
 import { Status } from '../models/status.js'
 
 export default class CaseService {
-  constructor({
-    caseRepository,
-    grantService,
-    events,
-    temporalClient,
-    logger
-  }) {
+  constructor({ caseRepository, grantService, events, logger }) {
     this.caseRepository = caseRepository
     this.grantService = grantService
     this.events = events
-    this.temporalClient = temporalClient
     this.logger = logger
   }
 
@@ -54,16 +48,23 @@ export default class CaseService {
 
     const kase = await this.caseRepository.save(newCase)
 
-    const caseStatusChanged = new CaseStatusChanged()
-    caseStatusChanged.entityId = kase.id
-    caseStatusChanged.data = {
-      oldStatus: null,
-      newStatus: kase.status
+    const caseCreated = new CaseCreated()
+
+    caseCreated.entityId = kase.id
+    caseCreated.data = {
+      applicationId
     }
 
-    this.events.publish(caseStatusChanged)
+    this.events.publish(caseCreated)
 
-    await this.temporalClient.runWorkflow(kase.id, applicationId)
+    // const caseStatusChanged = new CaseStatusChanged()
+    // caseStatusChanged.entityId = kase.id
+    // caseStatusChanged.data = {
+    //   oldStatus: null,
+    //   newStatus: kase.status
+    // }
+
+    // this.events.publish(caseStatusChanged)
 
     return kase
   }
@@ -194,11 +195,13 @@ export default class CaseService {
     await this.#changeStatus(kase, Status.Resolved)
 
     const applicationApproved = new ApplicationApproved()
+
     applicationApproved.entityId = kase.applicationId
+    applicationApproved.data = {
+      caseId: kase.id
+    }
 
     this.events.publish(applicationApproved)
-
-    await this.temporalClient.signalApproved(`case-${kase.id}`)
 
     return Result.ok(kase)
   }

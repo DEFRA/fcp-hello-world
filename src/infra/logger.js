@@ -3,38 +3,40 @@ import ecsFormat from '@elastic/ecs-pino-format'
 
 export default class Logger {
   constructor({ config }) {
-    const options = {
-      development: {
-        level: config.logLevel,
-        stdSerializers,
+    const format = {
+      pretty: {
         transport: { target: 'pino-pretty' }
       },
-      production: {
-        level: config.logLevel,
-        stdSerializers,
-        redact: {
-          paths: [
-            'req.headers.authorization',
-            'req.headers.cookie',
-            'res.headers'
-          ],
-          remove: true
-        },
-        ...ecsFormat(),
-        base: {
-          service: {
-            name: config.serviceName,
-            type: 'nodeJs',
-            version: config.serviceVersion
-          }
+      ecs: {
+        ...ecsFormat()
+      }
+    }
+
+    this.pino = pino({
+      enabled: config.log.enabled,
+      level: config.log.level,
+      stdSerializers,
+      redact: {
+        paths: [
+          'req.headers.authorization',
+          'req.headers.cookie',
+          'res.headers'
+        ],
+        remove: true
+      },
+      base: {
+        service: {
+          name: config.service.name,
+          type: 'nodeJs',
+          version: config.service.version
         }
       },
-      test: {
-        enabled: false
-      }
-    }[config.env]
+      ...format[config.log.format]
+    })
+  }
 
-    this.pino = pino(options)
+  debug(...args) {
+    this.pino.debug(...args)
   }
 
   info(...args) {

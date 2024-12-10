@@ -492,7 +492,7 @@ POST {{base}}/govforms/SL1/apply
 Content-Type: application/json
 
 {
-  "meta": { "email": "martin.smith@equalexperts.com" },
+  "meta": { "email": "example@defra.gov.uk.com" },
   "data": {
     "searchForItemsBy": "searchByCategoryOfItem",
     "carts": { "state": [], "items": [] },
