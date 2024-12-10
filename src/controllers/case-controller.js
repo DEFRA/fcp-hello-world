@@ -248,7 +248,7 @@ export default class CaseController {
       if (event.name === CaseStatusChanged.name) {
         return event.data.oldStatus
           ? `${event.data.oldStatus} → ${event.data.newStatus}`
-          : `New → ${event.data.newStatus}`
+          : event.data.newStatus
       }
 
       if (event.name === CaseAssigned.name) {
@@ -273,7 +273,16 @@ export default class CaseController {
     }
 
     const timeline = events
-      .sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt))
+      .sort((a, b) => {
+        const aPublishedAt = Date.parse(a.publishedAt)
+        const bPublishedAt = Date.parse(b.publishedAt)
+
+        if (aPublishedAt === bPublishedAt) {
+          return -1
+        }
+
+        return bPublishedAt - aPublishedAt
+      })
       .map((event) => [
         {
           text: dateTimeFormat

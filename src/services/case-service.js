@@ -57,14 +57,14 @@ export default class CaseService {
 
     this.events.publish(caseCreated)
 
-    // const caseStatusChanged = new CaseStatusChanged()
-    // caseStatusChanged.entityId = kase.id
-    // caseStatusChanged.data = {
-    //   oldStatus: null,
-    //   newStatus: kase.status
-    // }
+    const caseStatusChanged = new CaseStatusChanged()
+    caseStatusChanged.entityId = kase.id
+    caseStatusChanged.data = {
+      oldStatus: null,
+      newStatus: kase.status
+    }
 
-    // this.events.publish(caseStatusChanged)
+    this.events.publish(caseStatusChanged)
 
     return kase
   }
