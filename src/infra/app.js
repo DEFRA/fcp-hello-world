@@ -4,6 +4,7 @@ export default class App {
     applicationSubscriber,
     caseSubscriber,
     // temporalSubscriber,
+    workflowSubscriber,
     eventSubscriber
   }) {
     this.server = server
@@ -11,6 +12,7 @@ export default class App {
       applicationSubscriber,
       caseSubscriber,
       // temporalSubscriber,
+      workflowSubscriber,
       eventSubscriber
     ]
   }
