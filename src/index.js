@@ -7,6 +7,11 @@ const run = async () => {
     config: new Config()
   })
 
+  process.on('unhandledRejection', (error) => {
+    logger.error(error, 'Unhandled rejection')
+    process.exitCode = 1
+  })
+
   try {
     const container = await createContainer()
 
