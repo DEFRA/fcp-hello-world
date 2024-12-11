@@ -1,5 +1,4 @@
 import { randomUUID } from 'node:crypto'
-import { setTimeout } from 'node:timers/promises'
 import { format } from 'date-fns'
 import { NotifyClient } from 'notifications-node-client'
 import { Task } from '../models/case.js'
@@ -182,6 +181,5 @@ export const createActivities = (
         }
       )
     }
-    await setTimeout(10000)
   }
 })
