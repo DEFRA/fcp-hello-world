@@ -155,15 +155,15 @@ export const createActivities = (
       const application = await applicationService.findById(applicationId)
 
       const client = new NotifyClient(config.notify.apiKey)
-      const { protocol, host, port } = new URL(config.proxy.https)
+      const { host, username, password } = new URL(config.proxy.https)
 
       client.setProxy({
-        protocol,
+        protocol: 'https',
         host,
-        port,
+        port: 443,
         auth: {
-          username: config.proxy.squid.username,
-          password: config.proxy.squid.password
+          username,
+          password
         }
       })
 
