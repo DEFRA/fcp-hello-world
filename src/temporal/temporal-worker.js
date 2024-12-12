@@ -17,6 +17,7 @@ export default class TemporalWorker {
     logger,
     caseService,
     userService,
+    notifyService,
     applicationService,
     companiesHouseService
   }) {
@@ -24,6 +25,7 @@ export default class TemporalWorker {
     this.logger = logger
     this.caseService = caseService
     this.userService = userService
+    this.notifyService = notifyService
     this.applicationService = applicationService
     this.companiesHouseService = companiesHouseService
   }

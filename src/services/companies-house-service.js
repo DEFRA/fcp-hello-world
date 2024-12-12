@@ -4,11 +4,13 @@ export default class CompaniesHouseService {
   constructor({ config }) {
     this.url = config.companiesHouse.apiUrl
     this.key = Buffer.from(config.companiesHouse.apiKey).toString('base64')
-    this.proxyAgent = new ProxyAgent({
-      uri: config.proxy.https,
-      keepAliveTimeout: 10,
-      keepAliveMaxTimeout: 10
-    })
+    this.proxyAgent = config.proxy.https
+      ? new ProxyAgent({
+          uri: config.proxy.https,
+          keepAliveTimeout: 10,
+          keepAliveMaxTimeout: 10
+        })
+      : null
   }
 
   async getCompanyProfile(companyNumber) {

@@ -22,12 +22,7 @@ export default class Config {
   }
 
   proxy = {
-    http: env.CDP_HTTP_PROXY,
-    https: env.CDP_HTTPS_PROXY,
-    squid: {
-      username: env.SQUID_USERNAME,
-      password: env.SQUID_PASSWORD
-    }
+    https: env.CDP_HTTPS_PROXY
   }
 
   temporal = {

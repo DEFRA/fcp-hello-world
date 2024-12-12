@@ -1,6 +1,4 @@
-import { randomUUID } from 'node:crypto'
 import { format } from 'date-fns'
-import { NotifyClient } from 'notifications-node-client'
 import { Task } from '../models/case.js'
 import { Role } from '../models/role.js'
 import { Status } from '../models/status.js'
@@ -10,6 +8,7 @@ export const createActivities = (
   logger,
   caseService,
   userService,
+  notifyService,
   applicationService,
   companiesHouseService
 ) => ({
@@ -149,37 +148,19 @@ export const createActivities = (
     ])
   },
   async notifyApplicant(applicationId, status) {
-    logger.info('Sending notification', applicationId, status)
+    logger.info('Sending decision email', applicationId, status)
 
     if (config.env === 'production') {
       const application = await applicationService.findById(applicationId)
 
-      const client = new NotifyClient(config.notify.apiKey)
-      const { host, username, password } = new URL(config.proxy.https)
-
-      client.setProxy({
-        protocol: 'https',
-        host,
-        port: 443,
-        auth: {
-          username,
-          password
+      await notifyService.sendEmail({
+        templateId: config.notify.template.decision,
+        email: application.meta.email,
+        personalisation: {
+          status: status.toLowerCase(),
+          applicationId
         }
       })
-
-      client.sendEmail(
-        config.notify.template.decision,
-        application.meta.email,
-        {
-          personalisation: {
-            status: status.toLowerCase(),
-            applicationId
-          },
-          reference: randomUUID(),
-          oneClickUnsubscribeURL:
-            'https://example.com/unsubscribe.html?opaque=123456789'
-        }
-      )
     }
   }
 })

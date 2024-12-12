@@ -10,6 +10,7 @@ export default class WorkflowSubscriber {
     logger,
     caseService,
     userService,
+    notifyService,
     applicationService,
     companiesHouseService
   }) {
@@ -19,6 +20,7 @@ export default class WorkflowSubscriber {
       logger,
       caseService,
       userService,
+      notifyService,
       applicationService,
       companiesHouseService
     )
