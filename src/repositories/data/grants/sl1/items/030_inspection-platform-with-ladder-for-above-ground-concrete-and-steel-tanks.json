@@ -2,5 +2,8 @@
   "itemCode": "30",
   "title": "Inspection platform with ladder for above ground concrete and steel tanks",
   "category": ["safetyEquipment"],
+  "unitType": "each",
+  "unitCost": "2920",
+  "grantRate": "0.5",
   "grantValue": "1,460.00"
 }

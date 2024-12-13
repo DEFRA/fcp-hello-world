@@ -487,59 +487,15 @@ Content-Type: application/json
 }
 ###
 
-### Submit application GovForms SL1
+### BAD Submit application GovForms SL1
 POST {{base}}/govforms/SL1/apply
 Content-Type: application/json
 
 {
-  "meta": { "email": "example@defra.gov.uk.com" },
+  "meta": {
+    "email": "example@defra.gov.uk.com"
+  },
   "data": {
-    "searchForItemsBy": "searchByCategoryOfItem",
-    "carts": { "state": [], "items": [] },
-    "categories": [ "pumps" ],
-    "itemQuantity": "3",
-    "doYouNeedToAddMoreItemsToThisList": "no",
-    "countyParishHoldingNumber_copy": "434343",
-    "totalNumberOfAnimals_copy": "43",
-    "tradingThreeYears": "yes",
-    "financialEvidenceFile": [],
-    "projectFundingEvidenceFile": [],
-    "designDeclarationFormFile": [],
-    "designDrawingsFile": [],
-    "localPlanningAuthorityName": "121212",
-    "planningReferenceApprovalNumber": "121212",
-    "planningPermissionEvidenceFile": [],
-    "numberOfEmployees": "12",
-    "whoIsApplying": [ "landowner" ],
-    "areaOfFarm": null,
-    "areaOfNursery": "1212",
-    "areaOfWoodland": null,
-    "landParcelIds": null,
-    "whatDoYouUseYourLandFor": [ "horticulture" ],
-    "farmAssuranceSchemes": [ "redTractor" ],
-    "countyParishHoldingNumber": "1213123",
-    "doYouHaveAnyLivestock": "yes",
-    "totalNumberOfAnimals": "122",
-    "typeOfLivetock": "beef",
-    "doYouBelongToaLivestockHealthOrDissPrvntnSchmPtnl": null,
-    "existingMonthsOfSlurryCapacity": "12",
-    "totalNumberOfStores": "12",
-    "aboveGroundSlurryStoresCapacity": "1111",
-    "aboveGroundSlurryStoresCapacityKept": "22222",
-    "earthBankLagoonsWithSyntheticLinerCapacity": null,
-    "earthBankLagoonsWithSyntheticLinerCapacityKept": null,
-    "earthBankLagoonsWithoutSyntheticLinerCapacity": null,
-    "earthBankLagoonsWithoutSyntheticLinerCapacityKept": null,
-    "largeVolumeSupportedSlurryBagsCapacity": null,
-    "largeVolumeSupportedSlurryBagsCapacityKept": null,
-    "precastCircularConcreteSlurryStoresCapacity": null,
-    "precastCircularConcreteSlurryStoresCapacityKept": null,
-    "storesUsingPrecastRectangularConcretePanelsCapacity": null,
-    "storesUsingPrecastRectangularConcretePanelsCapacityKept": null,
-    "whatTypeOfSlurryStoresDoYouHaveNow": [ "aboveGroundSlurryStores" ],
-    "totalStoresToKeep": "33",
-    "totalStoresToKeepFixedCovers": "33",
-    "totalStoresToKeepFlexibleCovers": "33",
     "address": {
       "line1": "Spaces",
       "line2": "Floor 2",
@@ -553,23 +509,399 @@ Content-Type: application/json
     "businessName": "Equal Experts UK Limited",
     "companiesHouseNumber": "06191086",
     "phoneNum": "07777777777",
-    "aboveGroundSteelSlurryStoreNewCapacity": "11",
-    "earthBankLagoonsWithSyntheticLinerNewCapacity": null,
-    "earthBankLagoonsWithoutSyntheticLinerNewCapacity": "12",
-    "largeVolumeSupportedSlurryBagsNewCapacty": null,
-    "precastCircularConcreteSlurryStoresNewCapacty": null,
+    "numberOfEmployees": "10",
+    "whoIsApplying": [ "contractor" ],
+    "areaOfFarm": null,
+    "areaOfNursery": "20",
+    "areaOfWoodland": null,
+    "landParcelIds": null,
+    "whatDoYouUseYourLandFor": [ "horticulture" ],
+    "farmAssuranceSchemes": [ "redTractor" ],
+    "countyParishHoldingNumber": "FDF56",
+    "doYouHaveAnyLivestock": "yes",
+    "totalNumberOfAnimals": "10",
+    "typeOfLivetock": "beef",
+    "doYouBelongToaLivestockHealthOrDissPrvntnSchmPtnl": [ "laidInBritain" ],
+    "existingMonthsOfSlurryCapacity": "12",
+    "totalNumberOfStores": "1",
+    "aboveGroundSlurryStoresCapacity": "1",
+    "aboveGroundSlurryStoresCapacityKept": "2",
+    "earthBankLagoonsWithSyntheticLinerCapacity": "5",
+    "earthBankLagoonsWithSyntheticLinerCapacityKept": "6",
+    "earthBankLagoonsWithoutSyntheticLinerCapacity": "3",
+    "earthBankLagoonsWithoutSyntheticLinerCapacityKept": "4",
+    "largeVolumeSupportedSlurryBagsCapacity": "7",
+    "largeVolumeSupportedSlurryBagsCapacityKept": "8",
+    "precastCircularConcreteSlurryStoresCapacity": "9",
+    "precastCircularConcreteSlurryStoresCapacityKept": "10",
+    "storesUsingPrecastRectangularConcretePanelsCapacity": "11",
+    "storesUsingPrecastRectangularConcretePanelsCapacityKept": "12",
+    "whatTypeOfSlurryStoresDoYouHaveNow": [
+      "aboveGroundSlurryStores",
+      "earthBankLagoonsWithoutSyntheticLiner",
+      "earthBankLagoonsWithSyntheticLiner",
+      "largeVolumeSupportedSlurryBags",
+      "precastCircularConcreteSlurryStores",
+      "storesUsingPrecastRectangularConcretePanels"
+    ],
+    "totalStoresToKeep": "10",
+    "totalStoresToKeepFixedCovers": "14",
+    "totalStoresToKeepFlexibleCovers": "13",
+    "aboveGroundSteelSlurryStoreNewCapacity": "21",
+    "earthBankLagoonsWithSyntheticLinerNewCapacity": "23",
+    "earthBankLagoonsWithoutSyntheticLinerNewCapacity": "22",
+    "largeVolumeSupportedSlurryBagsNewCapacty": "24",
+    "precastCircularConcreteSlurryStoresNewCapacty": "25",
     "slurryStoresToAdd": [
       "aboveGroundSlurryStores",
-      "earthBankLagoonsWithoutSyntheticLiner"
+      "earthBankLagoonsWithoutSyntheticLiner",
+      "earthBankLagoonsWithSyntheticLiner",
+      "largeVolumeSupportedSlurryBags",
+      "precastCircularConcreteSlurryStores",
+      "storesUsingPrecastRectangularConcretePanels"
     ],
-    "storesUsingPrecastRectangularConcretePanelsNewCapacity": null,
-    "whatIsYourRequiredSixMonthCapacity": "45",
-    "totalNumberOfNewStores": "43",
-    "totalNumberOfNewFixedFlexibleCoversNewStores": "45",
-    "totalNumberOfNewFloatingFlexibleCoversNewStores": "43",
+    "storesUsingPrecastRectangularConcretePanelsNewCapacity": "26",
+    "whatIsYourRequiredSixMonthCapacity": "1234",
+    "totalNumberOfNewStores": "23",
+    "totalNumberOfNewFixedFlexibleCoversNewStores": "52",
+    "totalNumberOfNewFloatingFlexibleCoversNewStores": "53",
+    "searchForItemsBy": "searchByCategoryOfItem",
+    "carts": { "state": [Object], "items": [Object] },
+    "categories": [ "agitators" ],
+    "itemQuantity": "10",
+    "doYouNeedToAddMoreItemsToThisList": "no",
+    "countyParishHoldingNumber_copy": "434343",
+    "totalNumberOfAnimals_copy": "43",
+    "tradingThreeYears": "yes",
+    "financialEvidenceFile": [ [Object] ],
+    "projectFundingEvidenceFile": [ [Object] ],
+    "designDeclarationFormFile": [ [Object] ],
+    "designDrawingsFile": [ [Object], [Object] ],
+    "localPlanningAuthorityName": "121212",
+    "planningReferenceApprovalNumber": "121212",
+    "planningPermissionEvidenceFile": [ [Object] ],
     "submitApplication": [ "agreeSubmitDeclaration" ],
-    "now": "2024-11-11T15:11:25.010Z",
-    "items": []
+    "now": "2024-11-11T21:24:14.053Z",
+    "items": [ [Object] ]
+  }
+}
+###
+
+### Submit application GovForms SL1
+POST {{base}}/govforms/SL1/apply
+Content-Type: application/json
+
+{
+  "meta": {
+    "email": "example@defra.gov.uk.com"
+  },
+  "data": {
+    "address": {
+      "line1": "Spaces",
+      "line2": "Floor 2",
+      "line3": "111 Deansgate",
+      "line4": "Manchester",
+      "postcode": "M1 9ZZ",
+      "line5": "",
+      "country": ""
+    },
+    "businessLegalStatus": "limitedCompany",
+    "businessName": "Equal Experts UK Limited",
+    "companiesHouseNumber": "06191086",
+    "phoneNum": "07777777777",
+    "numberOfEmployees": "10",
+    "whoIsApplying": ["contractor"],
+    "areaOfFarm": null,
+    "areaOfNursery": "20",
+    "areaOfWoodland": null,
+    "landParcelIds": null,
+    "whatDoYouUseYourLandFor": ["horticulture"],
+    "farmAssuranceSchemes": ["redTractor"],
+    "countyParishHoldingNumber": "FDF56",
+    "doYouHaveAnyLivestock": "yes",
+    "totalNumberOfAnimals": "10",
+    "typeOfLivetock": "beef",
+    "doYouBelongToaLivestockHealthOrDissPrvntnSchmPtnl": ["laidInBritain"],
+    "existingMonthsOfSlurryCapacity": "12",
+    "totalNumberOfStores": "1",
+    "aboveGroundSlurryStoresCapacity": "1",
+    "aboveGroundSlurryStoresCapacityKept": "2",
+    "earthBankLagoonsWithSyntheticLinerCapacity": "5",
+    "earthBankLagoonsWithSyntheticLinerCapacityKept": "6",
+    "earthBankLagoonsWithoutSyntheticLinerCapacity": "3",
+    "earthBankLagoonsWithoutSyntheticLinerCapacityKept": "4",
+    "largeVolumeSupportedSlurryBagsCapacity": "7",
+    "largeVolumeSupportedSlurryBagsCapacityKept": "8",
+    "precastCircularConcreteSlurryStoresCapacity": "9",
+    "precastCircularConcreteSlurryStoresCapacityKept": "10",
+    "storesUsingPrecastRectangularConcretePanelsCapacity": "11",
+    "storesUsingPrecastRectangularConcretePanelsCapacityKept": "12",
+    "whatTypeOfSlurryStoresDoYouHaveNow": [
+      "aboveGroundSlurryStores",
+      "earthBankLagoonsWithoutSyntheticLiner",
+      "earthBankLagoonsWithSyntheticLiner",
+      "largeVolumeSupportedSlurryBags",
+      "precastCircularConcreteSlurryStores",
+      "storesUsingPrecastRectangularConcretePanels"
+    ],
+    "totalStoresToKeep": "10",
+    "totalStoresToKeepFixedCovers": "14",
+    "totalStoresToKeepFlexibleCovers": "13",
+    "aboveGroundSteelSlurryStoreNewCapacity": "21",
+    "earthBankLagoonsWithSyntheticLinerNewCapacity": "23",
+    "earthBankLagoonsWithoutSyntheticLinerNewCapacity": "22",
+    "largeVolumeSupportedSlurryBagsNewCapacty": "24",
+    "precastCircularConcreteSlurryStoresNewCapacty": "25",
+    "slurryStoresToAdd": [
+      "aboveGroundSlurryStores",
+      "earthBankLagoonsWithoutSyntheticLiner",
+      "earthBankLagoonsWithSyntheticLiner",
+      "largeVolumeSupportedSlurryBags",
+      "precastCircularConcreteSlurryStores",
+      "storesUsingPrecastRectangularConcretePanels"
+    ],
+    "storesUsingPrecastRectangularConcretePanelsNewCapacity": "26",
+    "whatIsYourRequiredSixMonthCapacity": "1234",
+    "totalNumberOfNewStores": "23",
+    "totalNumberOfNewFixedFlexibleCoversNewStores": "52",
+    "totalNumberOfNewFloatingFlexibleCoversNewStores": "53",
+    "searchForItemsBy": "searchByCategoryOfItem",
+    "carts": {
+      "state": { "searchType": "category" },
+      "items": {
+        "28": {
+          "details": {
+            "itemCode": "28",
+            "title": "Tank wall mixers tank capacity up to 1,200m3",
+            "category": ["agitators"],
+            "grantValue": "3,847.00"
+          },
+          "quantity": "10"
+        }
+      }
+    },
+    "categories": ["agitators"],
+    "itemQuantity": "10",
+    "doYouNeedToAddMoreItemsToThisList": "no",
+    "countyParishHoldingNumber_copy": "434343",
+    "totalNumberOfAnimals_copy": "43",
+    "tradingThreeYears": "yes",
+    "financialEvidenceFile": [
+      {
+        "fileName": "london train.pdf",
+        "fileId": "01C6JPVOTM5RE2H5REPVDKZJVC2FEJW276",
+        "downloadUrl": "https://govforms.sharepoint.com/sites/GovformsCloudQA/Shared%20Documents/equalexpertsandbox/TMKGEK4P/financialEvidenceFile/london%20train.pdf",
+        "siteId": "",
+        "size": "43758"
+      }
+    ],
+    "projectFundingEvidenceFile": [
+      {
+        "fileName": "london train.pdf",
+        "fileId": "01C6JPVOXHZTCEYIR6ERDIN6JX2SXZG5EX",
+        "downloadUrl": "https://govforms.sharepoint.com/sites/GovformsCloudQA/Shared%20Documents/equalexpertsandbox/TMKGEK4P/projectFundingEvidenceFile/london%20train.pdf",
+        "siteId": "",
+        "size": "43758"
+      }
+    ],
+    "designDeclarationFormFile": [
+      {
+        "fileName": "london train.pdf",
+        "fileId": "01C6JPVOSSRMOQMYM7XVC2RLYW3IBII7U2",
+        "downloadUrl": "https://govforms.sharepoint.com/sites/GovformsCloudQA/Shared%20Documents/equalexpertsandbox/TMKGEK4P/designDeclarationFormFile/london%20train.pdf",
+        "siteId": "",
+        "size": "43758"
+      }
+    ],
+    "designDrawingsFile": [
+      {
+        "fileName": "london train.pdf",
+        "fileId": "01C6JPVOVVDODG3N7HFFEZ2BXJFDJGXCS7",
+        "downloadUrl": "https://govforms.sharepoint.com/sites/GovformsCloudQA/Shared%20Documents/equalexpertsandbox/TMKGEK4P/designDrawingsFile/london%20train.pdf",
+        "siteId": "",
+        "size": "43758"
+      },
+      {
+        "fileName": "london train.pdf",
+        "fileId": "01C6JPVOVKHDO3HOQXXNBK674JHTCORK37",
+        "downloadUrl": "https://govforms.sharepoint.com/sites/GovformsCloudQA/Shared%20Documents/equalexpertsandbox/TMKGEK4P/designDrawingsFile-1/london%20train.pdf",
+        "siteId": "",
+        "size": "43758"
+      }
+    ],
+    "localPlanningAuthorityName": "121212",
+    "planningReferenceApprovalNumber": "121212",
+    "planningPermissionEvidenceFile": [
+      {
+        "fileName": "london train.pdf",
+        "fileId": "01C6JPVOSUYEFZI4J5LRGYNC2OE27EV7TT",
+        "downloadUrl": "https://govforms.sharepoint.com/sites/GovformsCloudQA/Shared%20Documents/equalexpertsandbox/TMKGEK4P/planningPermissionEvidenceFile/london%20train.pdf",
+        "siteId": "",
+        "size": "43758"
+      }
+    ],
+    "submitApplication": ["agreeSubmitDeclaration"],
+    "now": "2024-11-11T21:24:12.542Z",
+    "items": [{ "code": "28", "quantity": 10 }]
+  }
+}
+###
+
+### Run slurry calculation
+POST {{base}}/govforms/SL1/call-function/slurryCalculation
+Content-Type: application/json
+
+{
+  "meta": {
+    "email": "example@defra.gov.uk.com"
+  },
+  "data": {
+    "address": {
+      "line1": "Spaces",
+      "line2": "Floor 2",
+      "line3": "111 Deansgate",
+      "line4": "Manchester",
+      "postcode": "M1 9ZZ",
+      "line5": "",
+      "country": ""
+    },
+    "businessLegalStatus": "limitedCompany",
+    "businessName": "Equal Experts UK Limited",
+    "companiesHouseNumber": "06191086",
+    "numberOfEmployees": "10",
+    "whoIsApplying": ["contractor"],
+    "areaOfFarm": null,
+    "areaOfNursery": "20",
+    "areaOfWoodland": null,
+    "landParcelIds": null,
+    "whatDoYouUseYourLandFor": ["horticulture"],
+    "farmAssuranceSchemes": ["redTractor"],
+    "countyParishHoldingNumber": "FDF56",
+    "doYouHaveAnyLivestock": "yes",
+    "totalNumberOfAnimals": "10",
+    "typeOfLivetock": "beef",
+    "doYouBelongToaLivestockHealthOrDissPrvntnSchmPtnl": ["laidInBritain"],
+    "existingMonthsOfSlurryCapacity": "6",
+    "totalNumberOfStores": "1",
+    "aboveGroundSlurryStoresCapacity": "1000",
+    "aboveGroundSlurryStoresCapacityKept": "1000",
+    "earthBankLagoonsWithSyntheticLinerCapacity": "0",
+    "earthBankLagoonsWithSyntheticLinerCapacityKept": "0",
+    "earthBankLagoonsWithoutSyntheticLinerCapacity": "0",
+    "earthBankLagoonsWithoutSyntheticLinerCapacityKept": "0",
+    "largeVolumeSupportedSlurryBagsCapacity": "0",
+    "largeVolumeSupportedSlurryBagsCapacityKept": "0",
+    "precastCircularConcreteSlurryStoresCapacity": "0",
+    "precastCircularConcreteSlurryStoresCapacityKept": "0",
+    "storesUsingPrecastRectangularConcretePanelsCapacity": "0",
+    "storesUsingPrecastRectangularConcretePanelsCapacityKept": "0",
+    "whatTypeOfSlurryStoresDoYouHaveNow": [
+      "aboveGroundSlurryStores",
+      "earthBankLagoonsWithoutSyntheticLiner",
+      "earthBankLagoonsWithSyntheticLiner",
+      "largeVolumeSupportedSlurryBags",
+      "precastCircularConcreteSlurryStores",
+      "storesUsingPrecastRectangularConcretePanels"
+    ],
+    "totalStoresToKeep": "23",
+    "totalStoresToKeepFixedCovers": "10",
+    "totalStoresToKeepFlexibleCovers": "13",
+    "aboveGroundSteelSlurryStoreNewCapacity": "3000",
+    "earthBankLagoonsWithSyntheticLinerNewCapacity": "0",
+    "earthBankLagoonsWithoutSyntheticLinerNewCapacity": "0",
+    "largeVolumeSupportedSlurryBagsNewCapacty": "0",
+    "precastCircularConcreteSlurryStoresNewCapacty": "0",
+    "slurryStoresToAdd": [
+      "aboveGroundSlurryStores",
+      "earthBankLagoonsWithoutSyntheticLiner",
+      "earthBankLagoonsWithSyntheticLiner",
+      "largeVolumeSupportedSlurryBags",
+      "precastCircularConcreteSlurryStores",
+      "storesUsingPrecastRectangularConcretePanels"
+    ],
+    "storesUsingPrecastRectangularConcretePanelsNewCapacity": "0",
+    "whatIsYourRequiredSixMonthCapacity": "6000",
+    "totalNumberOfNewStores": "23",
+    "totalNumberOfNewFixedFlexibleCoversNewStores": "10",
+    "totalNumberOfNewFloatingFlexibleCoversNewStores": "13",
+    "searchForItemsBy": "searchByCategoryOfItem",
+    "carts": {
+      "state": { "searchType": "category" },
+      "items": {
+        "28": {
+          "details": {
+            "itemCode": "28",
+            "title": "Tank wall mixers tank capacity up to 1,200m3",
+            "category": ["agitators"],
+            "grantValue": "3,847.00"
+          },
+          "quantity": "10"
+        }
+      }
+    },
+    "categories": ["agitators"],
+    "itemQuantity": "10",
+    "doYouNeedToAddMoreItemsToThisList": "no",
+    "countyParishHoldingNumber_copy": "434343",
+    "totalNumberOfAnimals_copy": "43",
+    "tradingThreeYears": "yes",
+    "financialEvidenceFile": [
+      {
+        "fileName": "london train.pdf",
+        "fileId": "01C6JPVOTM5RE2H5REPVDKZJVC2FEJW276",
+        "downloadUrl": "https://govforms.sharepoint.com/sites/GovformsCloudQA/Shared%20Documents/equalexpertsandbox/TMKGEK4P/financialEvidenceFile/london%20train.pdf",
+        "siteId": "",
+        "size": "43758"
+      }
+    ],
+    "projectFundingEvidenceFile": [
+      {
+        "fileName": "london train.pdf",
+        "fileId": "01C6JPVOXHZTCEYIR6ERDIN6JX2SXZG5EX",
+        "downloadUrl": "https://govforms.sharepoint.com/sites/GovformsCloudQA/Shared%20Documents/equalexpertsandbox/TMKGEK4P/projectFundingEvidenceFile/london%20train.pdf",
+        "siteId": "",
+        "size": "43758"
+      }
+    ],
+    "designDeclarationFormFile": [
+      {
+        "fileName": "london train.pdf",
+        "fileId": "01C6JPVOSSRMOQMYM7XVC2RLYW3IBII7U2",
+        "downloadUrl": "https://govforms.sharepoint.com/sites/GovformsCloudQA/Shared%20Documents/equalexpertsandbox/TMKGEK4P/designDeclarationFormFile/london%20train.pdf",
+        "siteId": "",
+        "size": "43758"
+      }
+    ],
+    "designDrawingsFile": [
+      {
+        "fileName": "london train.pdf",
+        "fileId": "01C6JPVOVVDODG3N7HFFEZ2BXJFDJGXCS7",
+        "downloadUrl": "https://govforms.sharepoint.com/sites/GovformsCloudQA/Shared%20Documents/equalexpertsandbox/TMKGEK4P/designDrawingsFile/london%20train.pdf",
+        "siteId": "",
+        "size": "43758"
+      },
+      {
+        "fileName": "london train.pdf",
+        "fileId": "01C6JPVOVKHDO3HOQXXNBK674JHTCORK37",
+        "downloadUrl": "https://govforms.sharepoint.com/sites/GovformsCloudQA/Shared%20Documents/equalexpertsandbox/TMKGEK4P/designDrawingsFile-1/london%20train.pdf",
+        "siteId": "",
+        "size": "43758"
+      }
+    ],
+    "localPlanningAuthorityName": "121212",
+    "planningReferenceApprovalNumber": "121212",
+    "planningPermissionEvidenceFile": [
+      {
+        "fileName": "london train.pdf",
+        "fileId": "01C6JPVOSUYEFZI4J5LRGYNC2OE27EV7TT",
+        "downloadUrl": "https://govforms.sharepoint.com/sites/GovformsCloudQA/Shared%20Documents/equalexpertsandbox/TMKGEK4P/planningPermissionEvidenceFile/london%20train.pdf",
+        "siteId": "",
+        "size": "43758"
+      }
+    ],
+    "submitApplication": ["agreeSubmitDeclaration"],
+    "now": "2024-11-11T21:24:12.542Z",
+    "items": [{ "code": "28", "quantity": 10 }]
   }
 }
 ###

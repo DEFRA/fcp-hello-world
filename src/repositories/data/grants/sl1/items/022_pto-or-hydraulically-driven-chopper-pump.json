@@ -2,5 +2,8 @@
   "itemCode": "22",
   "title": "PTO or hydraulically driven chopper pump",
   "category": ["pumps"],
+  "unitType": "each",
+  "unitCost": "7390",
+  "grantRate": "0.5",
   "grantValue": "3,695.00"
 }

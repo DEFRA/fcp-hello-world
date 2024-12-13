@@ -2,5 +2,8 @@
   "itemCode": "19",
   "title": "Electric powered slurry transfer pump",
   "category": ["pumps"],
+  "unitType": "each",
+  "unitCost": "11316",
+  "grantRate": "0.5",
   "grantValue": "5,708.00"
 }

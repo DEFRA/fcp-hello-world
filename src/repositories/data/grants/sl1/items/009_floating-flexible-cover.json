@@ -2,5 +2,8 @@
   "itemCode": "9",
   "title": "Floating flexible cover",
   "category": ["covers"],
+  "unitType": "m2",
+  "unitCost": "15.98",
+  "grantRate": "0.5",
   "grantValue": "7.99"
 }

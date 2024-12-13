@@ -2,5 +2,8 @@
   "itemCode": "14",
   "title": "Concrete bunker to accommodate short term storage of stackable material from the slurry separator (maximum eligible 100 m2)",
   "category": ["separators"],
+  "unitType": "m2",
+  "unitCost": "336.36",
+  "grantRate": "0.5",
   "grantValue": "168.18"
 }

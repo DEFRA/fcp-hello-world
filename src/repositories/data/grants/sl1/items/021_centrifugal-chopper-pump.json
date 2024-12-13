@@ -2,5 +2,8 @@
   "itemCode": "21",
   "title": "Centrifugal chopper pump",
   "category": ["pumps"],
+  "unitType": "each",
+  "unitCost": "11270",
+  "grantRate": "0.5",
   "grantValue": "5,635.00"
 }

@@ -2,5 +2,8 @@
   "itemCode": "11",
   "title": "Screw Press separator",
   "category": ["separators"],
-  "grantValue": "25,112.00"
+  "unitType": "each",
+  "unitCost": "47992",
+  "grantRate": "0.5",
+  "grantValue": "23,996.00"
 }

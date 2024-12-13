@@ -2,5 +2,8 @@
   "itemCode": "20",
   "title": "PTO or hydraulically powered slurry transfer pump",
   "category": ["pumps"],
+  "unitType": "each",
+  "unitCost": "5276",
+  "grantRate": "0.5",
   "grantValue": "2,638.00"
 }

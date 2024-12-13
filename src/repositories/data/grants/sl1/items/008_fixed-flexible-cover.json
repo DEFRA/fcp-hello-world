@@ -2,5 +2,8 @@
   "itemCode": "8",
   "title": "Fixed flexible cover",
   "category": ["covers"],
+  "unitType": "m2",
+  "unitCost": "64.34",
+  "grantRate": "0.5",
   "grantValue": "32.17"
 }

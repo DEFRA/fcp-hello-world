@@ -2,5 +2,8 @@
   "itemCode": "13",
   "title": "Concrete pad for collection of stackable material from the slurry separator by trailer",
   "category": ["separators"],
+  "unitType": "each",
+  "unitCost": "12828",
+  "grantRate": "0.5",
   "grantValue": "6,414.00"
 }

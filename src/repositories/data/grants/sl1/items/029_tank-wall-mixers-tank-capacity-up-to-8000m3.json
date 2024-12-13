@@ -2,5 +2,8 @@
   "itemCode": "29",
   "title": "Tank wall mixers tank capacity up to 8,000m3",
   "category": ["agitators"],
+  "unitType": "each",
+  "unitCost": "17336",
+  "grantRate": "0.5",
   "grantValue": "8,668.00"
 }

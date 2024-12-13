@@ -2,5 +2,8 @@
   "itemCode": "27",
   "title": "Under-floor Transfer Channels",
   "category": ["transferChannels"],
+  "unitType": "m",
+  "unitCost": "431.10",
+  "grantRate": "0.5",
   "grantValue": "215.55"
 }

@@ -1,8 +1,9 @@
 // import Joi from '@hapi/joi';
 
 export default class GovFormsController {
-  constructor({ govformsService }) {
+  constructor({ govformsService, delegateFunctionCallService }) {
     this.govformsService = govformsService
+    this.delegateFunctionCallService = delegateFunctionCallService
   }
 
   routes = [
@@ -25,6 +26,11 @@ export default class GovFormsController {
       method: 'POST',
       path: '/api/govforms/{grantId}/apply',
       handler: this.processForm.bind(this)
+    },
+    {
+      method: 'POST',
+      path: '/api/govforms/{grantId}/call-function/{functionName}',
+      handler: this.callFunction.bind(this)
     }
   ]
 
@@ -69,5 +75,14 @@ export default class GovFormsController {
     await this.govformsService.processForm(grantId, request.payload)
 
     return h.response().code(200)
+  }
+
+  async callFunction(request, h) {
+    const { grantId, functionName } = request.params
+    return this.delegateFunctionCallService.delegate(
+      grantId,
+      functionName,
+      request.payload
+    )
   }
 }

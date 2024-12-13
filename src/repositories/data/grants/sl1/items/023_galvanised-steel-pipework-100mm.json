@@ -2,5 +2,8 @@
   "itemCode": "23",
   "title": "Galvanised steel pipework 100mm",
   "category": ["pipework"],
+  "unitType": "m",
+  "unitCost": "56.00",
+  "grantRate": "0.5",
   "grantValue": "28.00"
 }

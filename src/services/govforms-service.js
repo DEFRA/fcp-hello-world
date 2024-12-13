@@ -4,13 +4,13 @@ export default class GovFormsService {
     fetfItemsRepository,
     grantService,
     applicationService,
-    govformsApplicationMapper
+    govformsApplicationMapperService
   }) {
     this.fetfItemsRepository = fetfItemsRepository
     this.userDetailsRepository = userDetailsRepository
     this.grantService = grantService
     this.applicationService = applicationService
-    this.govformsApplicationMapper = govformsApplicationMapper
+    this.govformsApplicationMapperService = govformsApplicationMapperService
   }
 
   async findUserDetailsById(userId) {
@@ -94,10 +94,11 @@ export default class GovFormsService {
     // }
 
     const answers = grant.questions.map((question) => {
-      const mappedQuestionId = this.govformsApplicationMapper.mapQuestionId(
-        grantId,
-        question.id
-      )
+      const mappedQuestionId =
+        this.govformsApplicationMapperService.mapQuestionId(
+          grantId,
+          question.id
+        )
       switch (question.type) {
         case 'equipment':
           return {

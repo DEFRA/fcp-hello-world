@@ -2,5 +2,8 @@
   "itemCode": "31",
   "title": "Safety fencing for below ground stores, earth bank lagoons and slurry bags",
   "category": ["safetyEquipment"],
+  "unitType": "m",
+  "unitCost": "22.08",
+  "grantRate": "0.5",
   "grantValue": "11.04"
 }

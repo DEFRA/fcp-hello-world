@@ -2,5 +2,8 @@
   "itemCode": "17",
   "title": "Glass reinforced plastic (GPR) reception pit",
   "category": ["receptionPits"],
+  "unitType": "m3",
+  "unitCost": "309.62",
+  "grantRate": "0.5",
   "grantValue": "154.81"
 }
